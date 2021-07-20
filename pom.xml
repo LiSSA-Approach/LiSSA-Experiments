@@ -24,8 +24,13 @@
 	<repositories>
 		<repository>
 			<id>github</id>
-			<name>GitHub LiSSA Apache Maven Packages</name>
+			<name>GitHub Apache Maven Packages InFormALin</name>
 			<url>https://maven.pkg.github.com/InFormALin/maven-parent</url>
+		</repository>
+		<repository>
+			<id>github-lissa</id>
+			<name>GitHub Apache Maven Packages LiSSA</name>
+			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
 		</repository>
 	</repositories>
 
@@ -37,13 +42,13 @@
 
 	<distributionManagement>
 		<repository>
-			<id>github</id>
-			<name>GitHub ArDoCo Apache Maven Packages</name>
+			<id>github-lissa</id>
+			<name>GitHub Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
 		</repository>
 		<snapshotRepository>
-			<id>github</id>
-			<name>GitHub ArDoCo Apache Maven Packages</name>
+			<id>github-lissa</id>
+			<name>GitHub Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
 		</snapshotRepository>
 	</distributionManagement>

@@ -5,7 +5,8 @@ on:
     branches:
       - 'main' # Build the latest develop-SNAPSHOT
     paths:
-      - 'src/**'
+      - '**/src/**'
+      - '**/pom.xml'
       - 'pom.xml'
   
   # Allows you to run this workflow manually from the Actions tab
@@ -25,7 +26,7 @@ jobs:
       - name: maven-settings-xml-action
         uses: whelk-io/maven-settings-xml-action@v18
         with:
-          servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
+          servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }, { "id": "github-lissa", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
       
       - name: Cache Maven Packages
         uses: actions/cache@v2.1.6
@@ -35,7 +36,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
                       
       - name: Verify with Maven
-        run: mvn -B verify
+        run: mvn -U -B verify
       
       - name: Publish Package
-        run: mvn -B deploy
+        run: mvn -U -B deploy
