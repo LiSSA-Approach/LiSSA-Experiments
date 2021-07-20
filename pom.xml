@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.kit.kastel.lissa</groupId>
+	<artifactId>approach</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>LiSSA-Approach</name>
+	<url>https://github.com/LiSSA-Approach/LiSSA-Core</url>
+
+	<properties>
+		<java.version>16</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.release>${java.version}</maven.compiler.release>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
+		<sonar.organization>lissa-approach</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>github</id>
+			<name>GitHub LiSSA Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/InFormALin/maven-parent</url>
+		</repository>
+	</repositories>
+
+	<parent>
+		<groupId>edu.kit.kastel.informalin</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.2-SNAPSHOT</version>
+	</parent>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub ArDoCo Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+		</repository>
+		<snapshotRepository>
+			<id>github</id>
+			<name>GitHub ArDoCo Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<issueManagement>
+		<url>https://github.com/LiSSA-Approach/LiSSA-Core/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>cli</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<argLine>--illegal-access=permit</argLine>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<modules>
+		<module>cli</module>
+	</modules>
+</project>
