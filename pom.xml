@@ -10,7 +10,7 @@
 	<url>https://github.com/LiSSA-Approach/LiSSA-Core</url>
 
 	<properties>
-		<java.version>16</java.version>
+		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
