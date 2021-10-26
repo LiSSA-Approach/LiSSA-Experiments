@@ -84,5 +84,6 @@
 
 	<modules>
 		<module>cli</module>
+		<module>sketches</module>
 	</modules>
 </project>
