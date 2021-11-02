@@ -21,7 +21,7 @@ public class TestConverts {
         IUMLClass clazz = Mappers.CLASS.asType(boxElement);
         assertTrue(clazz instanceof IUMLClass);
 
-        IUMLClass clazzRaw = SketchElementType.CLASS.getMapper(IUMLClass.class).asType(boxElement);
+        IUMLClass clazzRaw = SketchElementType.CLASS.map(boxElement, IUMLClass.class);
         assertTrue(clazzRaw instanceof IUMLClass);
     }
 }

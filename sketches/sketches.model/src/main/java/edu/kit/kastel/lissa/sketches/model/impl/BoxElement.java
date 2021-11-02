@@ -55,12 +55,22 @@ public class BoxElement implements ISketchElement {
         return type.cast(information);
     }
 
+    public Map<String, Serializable> getRawData() {
+        return data;
+    }
+
     protected <I extends Serializable> I retrieveInformation(String key, Class<I> type, I defaultValue) {
         I information = retrieveInformation(key, type);
         if (information == null) {
             data.put(key, defaultValue);
         }
         return information == null ? defaultValue : information;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s [name=%s, confidence=%s, interpretation=%s]", //
+                getClass().getSimpleName(), getName(), getCurrentConfidence(), getCurrentInterpretation());
     }
 
 }
