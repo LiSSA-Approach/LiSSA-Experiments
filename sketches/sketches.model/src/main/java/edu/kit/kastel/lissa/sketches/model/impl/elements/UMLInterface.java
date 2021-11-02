@@ -1,22 +1,22 @@
 package edu.kit.kastel.lissa.sketches.model.impl.elements;
 
 import edu.kit.kastel.lissa.sketches.model.SketchElementType;
-import edu.kit.kastel.lissa.sketches.model.elements.IUMLClass;
+import edu.kit.kastel.lissa.sketches.model.elements.IUMLInterface;
 import edu.kit.kastel.lissa.sketches.model.impl.BoxElement;
 
-public class UMLClass extends UMLThing implements IUMLClass {
+public class UMLInterface extends UMLThing implements IUMLInterface {
     private static final long serialVersionUID = 3310996720085779684L;
 
-    public static final String ATTRIBUTE_KEY = "cls_attributes";
-    public static final String METHOD_KEY = "cls_methods";
+    public static final String ATTRIBUTE_KEY = "iface_attributes";
+    public static final String METHOD_KEY = "iface_methods";
 
-    public UMLClass(BoxElement element) {
+    public UMLInterface(BoxElement element) {
         super(element, ATTRIBUTE_KEY, METHOD_KEY);
     }
 
     @Override
     public SketchElementType getCurrentInterpretation() {
-        return SketchElementType.CLASS;
+        return SketchElementType.INTERFACE;
     }
 
 }

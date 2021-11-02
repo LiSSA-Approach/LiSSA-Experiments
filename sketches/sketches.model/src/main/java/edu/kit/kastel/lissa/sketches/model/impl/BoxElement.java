@@ -8,6 +8,7 @@ import edu.kit.kastel.lissa.sketches.model.ISketchElement;
 import edu.kit.kastel.lissa.sketches.model.SketchElementType;
 
 public class BoxElement implements ISketchElement {
+    private static final long serialVersionUID = 7524099797275769182L;
 
     public static final String NAME_KEY = "name";
     public static final String CONFIDENCE_KEY = "confidence";
@@ -56,6 +57,9 @@ public class BoxElement implements ISketchElement {
 
     protected <I extends Serializable> I retrieveInformation(String key, Class<I> type, I defaultValue) {
         I information = retrieveInformation(key, type);
+        if (information == null) {
+            data.put(key, defaultValue);
+        }
         return information == null ? defaultValue : information;
     }
 
