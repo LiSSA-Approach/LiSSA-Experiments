@@ -1,8 +1,10 @@
-package edu.kit.kastel.lissa.sketches.model.elements;
+package edu.kit.kastel.lissa.sketches.model.elements.uml;
 
 import org.eclipse.collections.api.list.ImmutableList;
 
-public interface IUMLThing {
+import edu.kit.kastel.lissa.sketches.model.elements.IBox;
+
+public interface IUMLThing extends IBox {
     void addAttribute(String attribute);
 
     void delAttribute(String attribute);

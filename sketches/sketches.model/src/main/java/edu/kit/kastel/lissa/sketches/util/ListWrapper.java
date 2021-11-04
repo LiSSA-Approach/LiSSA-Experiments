@@ -1,4 +1,4 @@
-package edu.kit.kastel.lissa.sketches.model;
+package edu.kit.kastel.lissa.sketches.util;
 
 import java.io.Serializable;
 import java.util.Collection;

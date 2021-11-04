@@ -4,27 +4,26 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.kit.kastel.lissa.sketches.model.ISketchElement;
-import edu.kit.kastel.lissa.sketches.model.SketchElementType;
+import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement;
 
-public class BoxElement implements ISketchElement {
-    private static final long serialVersionUID = 7524099797275769182L;
+abstract class AbstractElement implements ISketchElement {
+    private static final long serialVersionUID = -7524099797275769182L;
 
     public static final String NAME_KEY = "name";
     public static final String CONFIDENCE_KEY = "confidence";
 
     private Map<String, Serializable> data = new HashMap<>();
 
-    public BoxElement(String name, double confidence) {
+    protected AbstractElement(String name, double confidence) {
         addInformation(NAME_KEY, name);
         addInformation(CONFIDENCE_KEY, confidence);
     }
 
-    public BoxElement(Map<String, Serializable> data) {
+    protected AbstractElement(Map<String, Serializable> data) {
         this.data = new HashMap<>(data);
     }
 
-    protected BoxElement(BoxElement parent) {
+    protected AbstractElement(AbstractElement parent) {
         this.data = parent.data;
     }
 
@@ -36,11 +35,6 @@ public class BoxElement implements ISketchElement {
     @Override
     public String getName() {
         return retrieveInformation(NAME_KEY, String.class);
-    }
-
-    @Override
-    public SketchElementType getCurrentInterpretation() {
-        return SketchElementType.UNKNOWN;
     }
 
     protected <I extends Serializable> void addInformation(String key, I information) {
@@ -69,8 +63,8 @@ public class BoxElement implements ISketchElement {
 
     @Override
     public String toString() {
-        return String.format("%s [name=%s, confidence=%s, interpretation=%s]", //
-                getClass().getSimpleName(), getName(), getCurrentConfidence(), getCurrentInterpretation());
+        return String.format("%s [name=%s, confidence=%s]", //
+                getClass().getSimpleName(), getName(), getCurrentConfidence());
     }
 
 }

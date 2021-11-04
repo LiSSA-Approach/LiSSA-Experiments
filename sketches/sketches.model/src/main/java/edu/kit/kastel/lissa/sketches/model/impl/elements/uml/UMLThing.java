@@ -1,19 +1,19 @@
-package edu.kit.kastel.lissa.sketches.model.impl.elements;
+package edu.kit.kastel.lissa.sketches.model.impl.elements.uml;
 
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.list.MutableList;
 
-import edu.kit.kastel.lissa.sketches.model.ListWrapper;
-import edu.kit.kastel.lissa.sketches.model.elements.IUMLThing;
-import edu.kit.kastel.lissa.sketches.model.impl.BoxElement;
+import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLThing;
+import edu.kit.kastel.lissa.sketches.model.impl.Box;
+import edu.kit.kastel.lissa.sketches.util.ListWrapper;
 
-abstract class UMLThing extends BoxElement implements IUMLThing {
+abstract class UMLThing extends Box implements IUMLThing {
     private static final long serialVersionUID = -8954737446536608236L;
 
     private String attrKey;
     private String methKey;
 
-    protected UMLThing(BoxElement element, String attrKey, String methKey) {
+    protected UMLThing(Box element, String attrKey, String methKey) {
         super(element);
         this.attrKey = attrKey;
         this.methKey = methKey;

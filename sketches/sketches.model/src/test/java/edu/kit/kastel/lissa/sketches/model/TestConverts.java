@@ -5,23 +5,21 @@ import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.kit.kastel.lissa.sketches.model.elements.IUMLClass;
-import edu.kit.kastel.lissa.sketches.model.impl.BoxElement;
+import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLClass;
+import edu.kit.kastel.lissa.sketches.model.impl.Box;
+import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes;
 
 public class TestConverts {
-    private BoxElement boxElement;
+    private Box boxElement;
 
     @BeforeEach
     public void setup() {
-        this.boxElement = new BoxElement("TestElement", 0.5);
+        this.boxElement = new Box("TestElement", 0.5);
     }
 
     @Test
     public void convertToClass() {
-        IUMLClass clazz = Mappers.CLASS.asType(boxElement);
-        assertTrue(clazz instanceof IUMLClass);
-
-        IUMLClass clazzRaw = SketchElementType.CLASS.map(boxElement, IUMLClass.class);
+        IUMLClass clazzRaw = SketchBoxTypes.CLASS.map(boxElement, IUMLClass.class);
         assertTrue(clazzRaw instanceof IUMLClass);
     }
 }
