@@ -15,8 +15,8 @@ abstract class AbstractElement implements ISketchElement {
     private Map<String, Serializable> data = new HashMap<>();
 
     protected AbstractElement(String name, double confidence) {
-        addInformation(NAME_KEY, name);
-        addInformation(CONFIDENCE_KEY, confidence);
+        storeInformation(NAME_KEY, name);
+        storeInformation(CONFIDENCE_KEY, confidence);
     }
 
     protected AbstractElement(Map<String, Serializable> data) {
@@ -37,7 +37,7 @@ abstract class AbstractElement implements ISketchElement {
         return retrieveInformation(NAME_KEY, String.class);
     }
 
-    protected <I extends Serializable> void addInformation(String key, I information) {
+    protected <I extends Serializable> void storeInformation(String key, I information) {
         data.put(key, information);
     }
 

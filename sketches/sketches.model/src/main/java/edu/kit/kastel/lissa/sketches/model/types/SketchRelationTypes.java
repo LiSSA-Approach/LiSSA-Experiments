@@ -5,68 +5,68 @@ import java.lang.reflect.Modifier;
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement;
 
 public enum SketchRelationTypes {
-    UNKNOWN;
+	UNKNOWN, CLASS_ASSOCIATION;
 
-    public <O extends ISketchElement> O map(ISketchElement element, Class<O> type) {
-        if (!this.isValidType(type)) {
-            throw new IllegalArgumentException(type.getSimpleName() + " is not marked as possible type via " + SketchBoxTypeMapping.class);
-        }
+	public <O extends ISketchElement> O map(ISketchElement element, Class<O> type) {
+		if (!this.isValidType(type)) {
+			throw new IllegalArgumentException(type.getSimpleName() + " is not marked as possible type via " + SketchBoxTypeMapping.class);
+		}
 
-        Object o = createCompatibleObject(type, element);
-        return type.cast(o);
-    }
+		Object o = this.createCompatibleObject(type, element);
+		return type.cast(o);
+	}
 
-    private Object createCompatibleObject(Class<?> iface, ISketchElement element) {
-        var type = iface.getDeclaredAnnotation(SketchRelationTypeMapping.class).implementation();
+	private Object createCompatibleObject(Class<?> iface, ISketchElement element) {
+		var type = iface.getDeclaredAnnotation(SketchRelationTypeMapping.class).implementation();
 
-        var constructors = type.getDeclaredConstructors();
-        if (constructors == null || constructors.length == 0) {
-            throw new IllegalStateException(type.getClass() + " has no suitable constructor!");
-        }
+		var constructors = type.getDeclaredConstructors();
+		if (constructors == null || constructors.length == 0) {
+			throw new IllegalStateException(type.getClass() + " has no suitable constructor!");
+		}
 
-        try {
-            for (var constructor : constructors) {
-                if (!Modifier.isPublic(constructor.getModifiers())) {
-                    continue;
-                }
-                if (constructor.getParameterCount() != 1) {
-                    continue;
-                }
-                if (!constructor.getParameters()[0].getType().isAssignableFrom(element.getClass())) {
-                    continue;
-                }
-                return constructor.newInstance(element);
-            }
-        } catch (Exception e) {
-            throw new IllegalStateException(type.getClass() + " has no suitable constructor .. " + e.getMessage());
-        }
+		try {
+			for (var constructor : constructors) {
+				if (!Modifier.isPublic(constructor.getModifiers())) {
+					continue;
+				}
+				if (constructor.getParameterCount() != 1) {
+					continue;
+				}
+				if (!constructor.getParameters()[0].getType().isAssignableFrom(element.getClass())) {
+					continue;
+				}
+				return constructor.newInstance(element);
+			}
+		} catch (Exception e) {
+			throw new IllegalStateException(type.getClass() + " has no suitable constructor .. " + e.getMessage());
+		}
 
-        throw new IllegalStateException(type.getClass() + " has no suitable constructor!");
-    }
+		throw new IllegalStateException(type.getClass() + " has no suitable constructor!");
+	}
 
-    private boolean isValidType(Class<?> type) {
-        if (type == null || type == Object.class) {
-            return false;
-        }
+	private boolean isValidType(Class<?> type) {
+		if (type == null || type == Object.class) {
+			return false;
+		}
 
-        var mapping = type.getDeclaredAnnotation(SketchRelationTypeMapping.class);
-        if (mapping == null) {
-            for (Class<?> i : type.getInterfaces()) {
-                if (isValidType(i)) {
-                    return true;
-                }
-            }
+		var mapping = type.getDeclaredAnnotation(SketchRelationTypeMapping.class);
+		if (mapping == null) {
+			for (Class<?> i : type.getInterfaces()) {
+				if (this.isValidType(i)) {
+					return true;
+				}
+			}
 
-            return false;
-        }
-        return mapping.type() == this;
-    }
+			return false;
+		}
+		return mapping.type() == this;
+	}
 
-    public static SketchRelationTypes findByClass(Class<? extends ISketchElement> type) {
-        var mapping = type.getDeclaredAnnotation(SketchRelationTypeMapping.class);
-        if (mapping != null) {
-            return mapping.type();
-        }
-        throw new IllegalArgumentException("Can't find a suitable type for class " + type);
-    }
+	public static SketchRelationTypes findByClass(Class<? extends ISketchElement> type) {
+		var mapping = type.getDeclaredAnnotation(SketchRelationTypeMapping.class);
+		if (mapping != null) {
+			return mapping.type();
+		}
+		throw new IllegalArgumentException("Can't find a suitable type for class " + type);
+	}
 }
