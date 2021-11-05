@@ -64,8 +64,7 @@ public class UMLAssociation extends Relation implements IUMLAssociation {
 	}
 
 	@Override
-	public ImmutableList<IUMLThing> getUMLThingInAssociation(IUMLThing classOrInterface) {
-		// TODO Auto-generated method stub
-		return null;
+	public ImmutableList<IUMLThing> getUMLThingsInAssociation() {
+		return this.getConnectedElements().select(e -> e instanceof IUMLThing).collect(e -> (IUMLThing) e);
 	}
 }

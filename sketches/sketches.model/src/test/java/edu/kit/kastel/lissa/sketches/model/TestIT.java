@@ -24,7 +24,6 @@ public class TestIT {
 		sketch.addSketchElement(new Relation("Relation 1", 0.5));
 		IUMLAssociation assoc = sketch.changeInterpretation(sketch.getRelationElements().get(0), IUMLAssociation.class);
 		sketch.getBoxElements(IUMLThing.class).forEach(e -> assoc.addUMLThingToAssociation(e));
-
 		return sketch;
 	}
 }

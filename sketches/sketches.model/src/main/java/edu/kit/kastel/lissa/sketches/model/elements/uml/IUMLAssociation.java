@@ -21,6 +21,6 @@ public interface IUMLAssociation extends IRelation {
 
 	void delUMLThingFromAssociation(IUMLThing classOrInterface);
 
-	ImmutableList<IUMLThing> getUMLThingInAssociation(IUMLThing classOrInterface);
+	ImmutableList<IUMLThing> getUMLThingsInAssociation();
 
 }
