@@ -1,89 +1,149 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>edu.kit.kastel.lissa</groupId>
-	<artifactId>approach</artifactId>
-	<version>0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>LiSSA-Approach</name>
-	<url>https://github.com/LiSSA-Approach/LiSSA-Core</url>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<properties>
-		<java.version>17</java.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<maven.compiler.release>${java.version}</maven.compiler.release>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
-		<sonar.organization>lissa-approach</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
-	</properties>
+    <groupId>edu.kit.kastel.lissa</groupId>
+    <artifactId>approach</artifactId>
+    <version>0.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	<repositories>
-		<repository>
-			<id>github</id>
-			<name>GitHub Apache Maven Packages InFormALin</name>
-			<url>https://maven.pkg.github.com/InFormALin/maven-parent</url>
-		</repository>
-		<repository>
-			<id>github-lissa</id>
-			<name>GitHub Apache Maven Packages LiSSA</name>
-			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
-		</repository>
-	</repositories>
+    <name>Linking Sketches and Software Architecture (LiSSA)</name>
+    <url>https://github.com/LiSSA-Approach/LiSSA-Core</url>
 
-	<parent>
-		<groupId>edu.kit.kastel.informalin</groupId>
-		<artifactId>parent</artifactId>
-		<version>0.3-SNAPSHOT</version>
-	</parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <kotlin.code.style>official</kotlin.code.style>
+        <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <kotlin.version>1.6.0-RC2</kotlin.version>
+        <jackson.version>2.13.0</jackson.version>
+        <sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
+        <sonar.organization>lissa-approach</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+    </properties>
+    
+    <distributionManagement>
+        <repository>
+            <id>github-lissa</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+        </repository>
+        <snapshotRepository>
+            <id>github-lissa</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-	<distributionManagement>
-		<repository>
-			<id>github-lissa</id>
-			<name>GitHub Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
-		</repository>
-		<snapshotRepository>
-			<id>github-lissa</id>
-			<name>GitHub Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
-		</snapshotRepository>
-	</distributionManagement>
+    <issueManagement>
+        <url>https://github.com/LiSSA-Approach/LiSSA-Core/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
 
-	<issueManagement>
-		<url>https://github.com/LiSSA-Approach/LiSSA-Core/issues</url>
-		<system>GitHub Issues</system>
-	</issueManagement>
+    <repositories>
+        <repository>
+            <id>mavenCentral</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages InFormALin</name>
+            <url>https://maven.pkg.github.com/InFormALin/maven-parent</url>
+        </repository>
+        <repository>
+            <id>github-lissa</id>
+            <name>GitHub Apache Maven Packages LiSSA</name>
+            <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+        </repository>
+    </repositories>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>cli</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <parent>
+        <groupId>edu.kit.kastel.informalin</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.3-SNAPSHOT</version>
+    </parent>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<configuration>
-						<argLine>--illegal-access=permit</argLine>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sketches</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sketches.model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-	<modules>
-		<module>cli</module>
-		<module>sketches</module>
-	</modules>
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>1.6.0-RC2</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test-junit5</artifactId>
+            <version>1.6.0-RC2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>1.6.0-RC2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <version>1.6.0-RC2</version>
+        </dependency>
+    </dependencies>
+    <modules>
+        <module>sketches</module>
+        <module>cli</module>
+    </modules>
 </project>

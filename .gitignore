@@ -95,3 +95,5 @@ release.properties
 .classpath
 .project
 
+.idea/
+*.iml
