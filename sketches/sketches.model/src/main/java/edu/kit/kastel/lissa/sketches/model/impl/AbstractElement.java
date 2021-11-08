@@ -6,65 +6,45 @@ import java.util.Map;
 
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement;
 
-abstract class AbstractElement implements ISketchElement {
-    private static final long serialVersionUID = -7524099797275769182L;
+public abstract class AbstractElement implements ISketchElement {
+	private static final long serialVersionUID = -7524099797275769182L;
 
-    public static final String NAME_KEY = "name";
-    public static final String CONFIDENCE_KEY = "confidence";
+	@SuppressWarnings("unused")
+	private transient Map<String, Serializable> data = new HashMap<>();
 
-    private Map<String, Serializable> data = new HashMap<>();
+	private String name;
+	private double confidence;
 
-    protected AbstractElement(String name, double confidence) {
-        storeInformation(NAME_KEY, name);
-        storeInformation(CONFIDENCE_KEY, confidence);
-    }
+	protected AbstractElement() {
+		// NOP
+	}
 
-    protected AbstractElement(Map<String, Serializable> data) {
-        this.data = new HashMap<>(data);
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    protected AbstractElement(AbstractElement parent) {
-        this.data = parent.data;
-    }
+	public void setConfidence(double confidence) {
+		this.confidence = confidence;
+	}
 
-    @Override
-    public double getCurrentConfidence() {
-        return retrieveInformation(CONFIDENCE_KEY, Double.class, 0.0);
-    }
+	@Override
+	public double getCurrentConfidence() {
+		return this.confidence;
+	}
 
-    @Override
-    public String getName() {
-        return retrieveInformation(NAME_KEY, String.class);
-    }
+	@Override
+	public String getName() {
+		return this.name;
+	}
 
-    protected <I extends Serializable> void storeInformation(String key, I information) {
-        data.put(key, information);
-    }
+	public Map<String, Serializable> getRawData() {
+		return this.data;
+	}
 
-    protected <I extends Serializable> I retrieveInformation(String key, Class<I> type) {
-        Object information = data.get(key);
-        if (information == null) {
-            return null;
-        }
-        return type.cast(information);
-    }
-
-    public Map<String, Serializable> getRawData() {
-        return data;
-    }
-
-    protected <I extends Serializable> I retrieveInformation(String key, Class<I> type, I defaultValue) {
-        I information = retrieveInformation(key, type);
-        if (information == null) {
-            data.put(key, defaultValue);
-        }
-        return information == null ? defaultValue : information;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s [name=%s, confidence=%s]", //
-                getClass().getSimpleName(), getName(), getCurrentConfidence());
-    }
+	@Override
+	public String toString() {
+		return String.format("%s [name=%s, confidence=%s]", //
+				this.getClass().getSimpleName(), this.getName(), this.getCurrentConfidence());
+	}
 
 }

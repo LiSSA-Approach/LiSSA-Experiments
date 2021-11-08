@@ -1,8 +1,8 @@
 package edu.kit.kastel.lissa.sketches.model.types;
 
-import java.lang.reflect.Modifier;
-
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement;
+import edu.kit.kastel.lissa.sketches.model.impl.AbstractElement;
+import edu.kit.kastel.lissa.sketches.model.impl.Remapper;
 
 public enum SketchRelationTypes {
 	UNKNOWN, CLASS_ASSOCIATION;
@@ -16,32 +16,18 @@ public enum SketchRelationTypes {
 		return type.cast(o);
 	}
 
+	@SuppressWarnings("unchecked")
 	private Object createCompatibleObject(Class<?> iface, ISketchElement element) {
 		var type = iface.getDeclaredAnnotation(SketchRelationTypeMapping.class).implementation();
 
-		var constructors = type.getDeclaredConstructors();
-		if (constructors == null || constructors.length == 0) {
-			throw new IllegalStateException(type.getClass() + " has no suitable constructor!");
+		if (!AbstractElement.class.isAssignableFrom(type) || !AbstractElement.class.isAssignableFrom(element.getClass())) {
+			throw new IllegalArgumentException("Mapping is only supported for subtypes of " + AbstractElement.class);
 		}
-
 		try {
-			for (var constructor : constructors) {
-				if (!Modifier.isPublic(constructor.getModifiers())) {
-					continue;
-				}
-				if (constructor.getParameterCount() != 1) {
-					continue;
-				}
-				if (!constructor.getParameters()[0].getType().isAssignableFrom(element.getClass())) {
-					continue;
-				}
-				return constructor.newInstance(element);
-			}
+			return Remapper.mapRaw((AbstractElement) element, (Class<? extends AbstractElement>) element.getClass(), (Class<? extends AbstractElement>) type);
 		} catch (Exception e) {
-			throw new IllegalStateException(type.getClass() + " has no suitable constructor .. " + e.getMessage());
+			throw new IllegalArgumentException(e);
 		}
-
-		throw new IllegalStateException(type.getClass() + " has no suitable constructor!");
 	}
 
 	private boolean isValidType(Class<?> type) {

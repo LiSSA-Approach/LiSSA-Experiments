@@ -10,8 +10,7 @@ import org.eclipse.collections.api.list.ImmutableList;
 import edu.kit.kastel.lissa.sketches.model.elements.IBox;
 import edu.kit.kastel.lissa.sketches.model.elements.IRelation;
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement;
-import edu.kit.kastel.lissa.sketches.model.impl.Box;
-import edu.kit.kastel.lissa.sketches.model.impl.Relation;
+import edu.kit.kastel.lissa.sketches.model.impl.AbstractElement;
 import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes;
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes;
 
@@ -22,29 +21,29 @@ public class Sketch implements Serializable, ISketch {
 	private IdentityHashMap<Map<String, Serializable>, IRelation> relationElements = new IdentityHashMap<>();
 
 	public void addSketchElement(IBox element) {
-		Box elemAsBox = this.elemAsBox(element);
+		AbstractElement elemAsBox = this.elemAsData(element);
 		this.boxElements.put(elemAsBox.getRawData(), element);
 	}
 
 	public void addSketchElement(IRelation element) {
-		Relation elemAsRelation = this.elemAsRelation(element);
+		AbstractElement elemAsRelation = this.elemAsData(element);
 		this.relationElements.put(elemAsRelation.getRawData(), element);
 	}
 
 	public void delSketchElement(IBox element) {
-		Box elemAsBox = this.elemAsBox(element);
+		AbstractElement elemAsBox = this.elemAsData(element);
 		this.boxElements.remove(elemAsBox.getRawData());
 	}
 
 	public void delSketchElement(IRelation element) {
-		Relation elemAsRelation = this.elemAsRelation(element);
+		AbstractElement elemAsRelation = this.elemAsData(element);
 		this.relationElements.remove(elemAsRelation.getRawData());
 	}
 
 	public <O extends IBox> O changeInterpretation(IBox element, Class<O> clazz) {
 		SketchBoxTypes type = SketchBoxTypes.findByClass(clazz);
 
-		Box elemAsBox = this.elemAsBox(element);
+		AbstractElement elemAsBox = this.elemAsData(element);
 		O newInterpretation = type.map(elemAsBox, clazz);
 		this.boxElements.put(elemAsBox.getRawData(), newInterpretation);
 		return newInterpretation;
@@ -53,7 +52,7 @@ public class Sketch implements Serializable, ISketch {
 	public <O extends IRelation> O changeInterpretation(IRelation element, Class<O> clazz) {
 		SketchRelationTypes type = SketchRelationTypes.findByClass(clazz);
 
-		Relation elemAsBox = this.elemAsRelation(element);
+		AbstractElement elemAsBox = this.elemAsData(element);
 		O newInterpretation = type.map(elemAsBox, clazz);
 		this.relationElements.put(elemAsBox.getRawData(), newInterpretation);
 		return newInterpretation;
@@ -83,28 +82,21 @@ public class Sketch implements Serializable, ISketch {
 		return this.getRelationElements().select(e -> e.getCurrentInterpretation() == type);
 	}
 
-	private Box elemAsBox(ISketchElement element) {
-		if (!(element instanceof Box)) {
-			throw new IllegalArgumentException("You can only use elements based on " + Box.class + " with " + Sketch.class);
+	private AbstractElement elemAsData(ISketchElement element) {
+		if (!(element instanceof AbstractElement)) {
+			throw new IllegalArgumentException("You can only use elements based on " + AbstractElement.class + " with " + Sketch.class);
 		}
-		return (Box) element;
-	}
-
-	private Relation elemAsRelation(IRelation element) {
-		if (!(element instanceof Relation)) {
-			throw new IllegalArgumentException("You can only use elements based on " + Relation.class + " with " + Sketch.class);
-		}
-		return (Relation) element;
+		return (AbstractElement) element;
 	}
 
 	@Override
 	public IBox getCurrentInterpretation(IBox element) {
-		return this.boxElements.get(this.elemAsBox(element).getRawData());
+		return this.boxElements.get(this.elemAsData(element).getRawData());
 	}
 
 	@Override
 	public IRelation getCurrentInterpretation(IRelation relation) {
-		return this.relationElements.get(this.elemAsRelation(relation).getRawData());
+		return this.relationElements.get(this.elemAsData(relation).getRawData());
 	}
 
 	@Override
