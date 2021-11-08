@@ -5,7 +5,6 @@ import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLClass
 import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLThing
 import edu.kit.kastel.lissa.sketches.model.impl.Box
 import edu.kit.kastel.lissa.sketches.model.impl.Relation
-import org.eclipse.collections.api.block.procedure.Procedure
 import org.junit.jupiter.api.Test
 
 class TestIT {
@@ -17,8 +16,8 @@ class TestIT {
         sketch.changeInterpretation(sketch.getBoxElements()[0], IUMLClass::class)
         sketch.addSketchElement(Relation("Relation 1", 0.5))
         val assoc = sketch.changeInterpretation(sketch.getRelationElements()[0], IUMLAssociation::class)
-        
-        sketch.getBoxElements(IUMLThing::class).forEach(Procedure { e: IUMLThing -> assoc.addUMLThingToAssociation(e) })
+
+        sketch.getBoxElements(IUMLThing::class).forEach { e: IUMLThing -> assoc.addUMLThingToAssociation(e) }
         println(sketch)
     }
 }

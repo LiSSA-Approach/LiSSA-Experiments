@@ -25,7 +25,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
     </properties>
-    
+
     <distributionManagement>
         <repository>
             <id>github-lissa</id>
@@ -64,7 +64,7 @@
     <parent>
         <groupId>edu.kit.kastel.informalin</groupId>
         <artifactId>parent</artifactId>
-        <version>0.3-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
     </parent>
 
     <dependencyManagement>
