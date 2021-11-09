@@ -1,6 +1,8 @@
 package edu.kit.kastel.lissa.sketches.model.impl
 
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement
+import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypeMapping
+import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
 import java.lang.reflect.Modifier
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
@@ -32,6 +34,16 @@ fun <A : Annotation, T : Any, R : ISketchElement> createCompatibleObject(
     } catch (e: Exception) {
         throw IllegalArgumentException(e)
     }
+}
+
+
+fun <A : Annotation, T : Any> findByClass(type: KClass<out ISketchElement>, annotationType: KClass<A>, annotation2EnumValue: (A) -> T): T {
+    val mapping = type.annotations.find { a -> annotationType.isInstance(a) }
+    if (mapping != null) {
+        @Suppress("UNCHECKED_CAST")
+        return annotation2EnumValue(mapping as A)
+    }
+    throw IllegalArgumentException("Can't find a suitable type for class $type")
 }
 
 private fun <A : Annotation, T : Any> isValidType(annotationType: KClass<A>, annotation2EnumValue: (A) -> T, type: Class<*>?, typeEnumValue: Any): Boolean {

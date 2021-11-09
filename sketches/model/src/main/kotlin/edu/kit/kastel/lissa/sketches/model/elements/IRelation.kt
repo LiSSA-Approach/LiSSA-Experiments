@@ -14,4 +14,6 @@ interface IRelation : ISketchElement {
     fun delFromAssociation(element: IBox)
 
     fun reloadElementMappings(sketch: ISketch)
+
+    override fun elementType(): SketchElementType = SketchElementType.RELATION
 }

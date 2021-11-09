@@ -7,4 +7,5 @@ interface ISketchElement : Serializable {
     fun setName(name: String)
     fun currentConfidence(): Double
     fun setCurrentConfidence(confidence: Double)
+    fun elementType(): SketchElementType
 }

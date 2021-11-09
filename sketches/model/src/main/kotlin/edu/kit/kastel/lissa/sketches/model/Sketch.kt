@@ -4,7 +4,10 @@ import edu.kit.kastel.lissa.sketches.model.elements.IBox
 import edu.kit.kastel.lissa.sketches.model.elements.IRelation
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement
 import edu.kit.kastel.lissa.sketches.model.impl.AbstractElement
+import edu.kit.kastel.lissa.sketches.model.impl.findByClass
+import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypeMapping
 import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
+import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypeMapping
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes
 import java.io.Serializable
 import java.util.*
@@ -35,7 +38,7 @@ class Sketch : Serializable, ISketch {
     }
 
     fun <O : IBox> changeInterpretation(element: IBox, clazz: KClass<O>): O {
-        val type = SketchBoxTypes.findByClass(clazz)
+        val type = findByClass(clazz, SketchBoxTypeMapping::class) { a -> a.type }
         val elemAsBox = elemAsData(element)
         val newInterpretation = type.map(elemAsBox, clazz)
         boxElements[elemAsBox.rawData] = newInterpretation
@@ -43,7 +46,7 @@ class Sketch : Serializable, ISketch {
     }
 
     fun <O : IRelation> changeInterpretation(element: IRelation, clazz: KClass<O>): O {
-        val type = SketchRelationTypes.findByClass(clazz)
+        val type = findByClass(clazz, SketchRelationTypeMapping::class) { a -> a.type }
         val elemAsBox = elemAsData(element)
         val newInterpretation = type.map(elemAsBox, clazz)
         relationElements[elemAsBox.rawData] = newInterpretation
@@ -55,7 +58,7 @@ class Sketch : Serializable, ISketch {
     }
 
     fun <B : IBox> getBoxElements(type: KClass<B>): List<B> {
-        return this.getBoxElements().filterIsInstance<B>(type.java)
+        return this.getBoxElements().filterIsInstance(type.java)
     }
 
     fun getRelationElements(): List<IRelation> {
