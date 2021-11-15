@@ -24,12 +24,18 @@ class PalladioComponentModel {
     }
 
     private fun loadComponents() {
-        
+        val basicComponentClass = ontology.getClass("BasicComponent").get()
+        val basicComponents = ontology.getIndividualsOfClass(basicComponentClass)
+        basicComponents.forEach { components.add(PCMComponent.of(ontology, it)) }
     }
 
     private fun loadInterfaces() {
-
+        val interfaceClass = ontology.getClass("OperationInterface").get()
+        val foundInterfaces = ontology.getIndividualsOfClass(interfaceClass)
+        foundInterfaces.forEach { interfaces.add(PCMInterface.of(ontology, it)) }
     }
 
+    fun interfaces() = interfaces.toList()
+    fun components() = components.toList()
 
 }

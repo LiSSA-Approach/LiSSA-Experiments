@@ -1,11 +1,10 @@
 package edu.kit.kastel.lissa.sketches.model.impl
 
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement
-import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypeMapping
-import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
 import java.lang.reflect.Modifier
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
+import kotlin.reflect.full.superclasses
 import kotlin.reflect.jvm.isAccessible
 
 private const val DATA = "rawData"
@@ -134,6 +133,4 @@ private fun getData(input: AbstractElement): MutableMap<String, Any> {
     return dataField[input] as MutableMap<String, Any>
 }
 
-private fun KClass<*>.superclass(): KClass<*>? {
-    return supertypes.find { e -> e is KClass<*> } as? KClass<*>
-}
+private fun KClass<*>.superclass(): KClass<*>? = superclasses.firstOrNull { cls -> !cls.java.isInterface }
