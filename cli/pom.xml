@@ -11,6 +11,19 @@
 
     <artifactId>cli</artifactId>
     <name>LiSSA-CLI</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-cli-jvm</artifactId>
+            <version>0.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.kit.kastel.lissa</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

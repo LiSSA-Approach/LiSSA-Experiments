@@ -16,5 +16,9 @@
             <artifactId>ontology-connector</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>edu.kit.kastel.lissa</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -71,6 +71,11 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>sketches</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -151,5 +156,6 @@
         <module>sketches</module>
         <module>cli</module>
         <module>swa</module>
+        <module>utils</module>
     </modules>
 </project>

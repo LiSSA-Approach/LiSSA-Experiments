@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertTrue
 
-class PalladioComponentModelTest {
+class PalladioComponentModelTest : TestBase() {
 
     private var palladioComponentModel: PalladioComponentModel? = null
 

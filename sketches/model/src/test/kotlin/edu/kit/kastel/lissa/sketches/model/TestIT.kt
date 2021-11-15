@@ -7,7 +7,7 @@ import edu.kit.kastel.lissa.sketches.model.impl.Box
 import edu.kit.kastel.lissa.sketches.model.impl.Relation
 import org.junit.jupiter.api.Test
 
-class TestIT {
+class TestIT : TestBase() {
     @Test
     fun test() {
         val sketch = Sketch()
