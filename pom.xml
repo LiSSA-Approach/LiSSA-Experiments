@@ -18,7 +18,7 @@
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <kotlin.version>1.6.0-RC2</kotlin.version>
+        <kotlin.version>1.6.0</kotlin.version>
         <jackson.version>2.13.0</jackson.version>
         <sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
         <sonar.organization>lissa-approach</sonar.organization>
@@ -94,7 +94,7 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-                <version>1.6.0-RC2</version>
+                <version>${kotlin.version}</version>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -127,7 +127,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit5</artifactId>
-            <version>1.6.0-RC2</version>
+            <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -139,12 +139,12 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>1.6.0-RC2</version>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
-            <version>1.6.0-RC2</version>
+            <version>${kotlin.version}</version>
         </dependency>
     </dependencies>
     <modules>
