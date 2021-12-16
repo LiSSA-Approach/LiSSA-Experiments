@@ -4,11 +4,12 @@ import edu.kit.kastel.informalin.ontology.OntologyInterface
 import org.apache.jena.ontology.Individual
 
 data class PCMComponent(
-    val id: String,
+    override val id: String,
     val name: String,
     val providedInterfaceIds: List<String>,
-    val requiredInterfaceIds: List<String>
-) {
+    val requiredInterfaceIds: List<String>,
+    override val type: PCMElementType = PCMElementType.COMPONENT
+) : PCMElement {
     companion object {
         fun of(ontology: OntologyInterface, individual: Individual): PCMComponent {
             val id = individual.pcmId(ontology)
@@ -37,7 +38,7 @@ data class PCMComponent(
             roleEntityId: String,
             interfaceProperty: String
         ): List<String> {
-            
+
             val roleEntities = component.listProperties(
                 ontology.getProperty(roleEntityId).get()
             ).mapWith { s -> ontology.getIndividualByIri(s.`object`.asResource().uri).get() }.toList()

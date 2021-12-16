@@ -5,9 +5,10 @@ import org.apache.jena.ontology.Individual
 
 
 data class PCMInterface(
-    val id: String,
-    val name: String
-) {
+    override val id: String,
+    val name: String,
+    override val type: PCMElementType = PCMElementType.INTERFACE
+) : PCMElement {
     companion object {
         fun of(ontology: OntologyInterface, individual: Individual): PCMInterface {
             val id = individual.pcmId(ontology)
