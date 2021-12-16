@@ -3,28 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>swa</artifactId>
+        <artifactId>approach</artifactId>
         <groupId>edu.kit.kastel.lissa</groupId>
         <version>0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>swa.pcm</artifactId>
+    <artifactId>linking</artifactId>
     <dependencies>
         <dependency>
-            <groupId>edu.kit.kastel.informalin</groupId>
-            <artifactId>ontology-connector</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <groupId>edu.kit.kastel.lissa</groupId>
+            <artifactId>sketches.model</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j18-impl</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>edu.kit.kastel.lissa</groupId>
-            <artifactId>utils</artifactId>
+            <artifactId>swa.pcm</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -10,7 +10,7 @@ data class PCMInterface(
 ) {
     companion object {
         fun of(ontology: OntologyInterface, individual: Individual): PCMInterface {
-            val id = individual.getProperty(ontology.getProperty(ID_PROPERTY).get()).string
+            val id = individual.pcmId(ontology)
             val name = individual.getProperty(ontology.getProperty(ENTITY_NAME_PROPERTY).get()).string
             return PCMInterface(id, name)
         }

@@ -38,4 +38,9 @@ class PalladioComponentModel {
     fun interfaces() = interfaces.toList()
     fun components() = components.toList()
 
+    fun requiredInterfaces(component: PCMComponent) =
+        component.requiredInterfaceIds.map { id -> interfaces.find { it.id == id }!! }
+
+    fun providedInterfaces(component: PCMComponent) =
+        component.providedInterfaceIds.map { id -> interfaces.find { it.id == id }!! }
 }

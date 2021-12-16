@@ -17,6 +17,8 @@ class PalladioComponentModelTest : TestBase() {
     fun testExistence() {
         assertTrue { palladioComponentModel!!.interfaces().isNotEmpty() }
         assertTrue { palladioComponentModel!!.components().isNotEmpty() }
+        palladioComponentModel!!.components()
+            .map { c -> assertTrue { palladioComponentModel!!.providedInterfaces(c).isNotEmpty() } }
     }
 
 }

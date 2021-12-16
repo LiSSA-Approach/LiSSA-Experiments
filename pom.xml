@@ -89,6 +89,11 @@
                 <artifactId>swa.pcm</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>linking</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -157,5 +162,6 @@
         <module>cli</module>
         <module>swa</module>
         <module>utils</module>
+        <module>linking</module>
     </modules>
 </project>
