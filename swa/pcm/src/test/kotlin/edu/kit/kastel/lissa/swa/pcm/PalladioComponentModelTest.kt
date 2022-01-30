@@ -1,8 +1,8 @@
 package edu.kit.kastel.lissa.swa.pcm
 
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import kotlin.test.assertTrue
 
 class PalladioComponentModelTest : TestBase() {
 
@@ -17,8 +17,8 @@ class PalladioComponentModelTest : TestBase() {
     fun testExistence() {
         assertTrue { palladioComponentModel!!.interfaces().isNotEmpty() }
         assertTrue { palladioComponentModel!!.components().isNotEmpty() }
-        palladioComponentModel!!.components()
-            .map { c -> assertTrue { palladioComponentModel!!.providedInterfaces(c).isNotEmpty() } }
+        palladioComponentModel!!.components().map { c ->
+            assertTrue { palladioComponentModel!!.providedInterfaces(c).isNotEmpty() }
+        }
     }
-
 }

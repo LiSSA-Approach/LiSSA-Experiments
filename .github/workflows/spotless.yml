@@ -1,0 +1,42 @@
+name: Spotless Check
+
+on:
+  push:
+    paths:
+      - '**/src/**'
+      - '**/pom.xml'
+      - 'pom.xml'
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2.1.7
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: maven-settings-xml-action
+        uses: whelk-io/maven-settings-xml-action@v20
+        with:
+          servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }, { "id": "github-lissa", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
+
+      - name: Check Style
+        run: mvn -U -B spotless:check --file pom.xml

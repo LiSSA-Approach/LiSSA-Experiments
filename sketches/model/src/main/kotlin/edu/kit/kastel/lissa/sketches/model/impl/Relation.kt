@@ -9,7 +9,6 @@ open class Relation : AbstractElement, IRelation {
 
     private val connectedElements: MutableList<IBox> = mutableListOf()
 
-
     constructor() {
         // NOP
     }
@@ -18,7 +17,6 @@ open class Relation : AbstractElement, IRelation {
         this.setName(name)
         this.setCurrentConfidence(confidence)
     }
-
 
     override fun connectedElements(): List<IBox> = connectedElements
 
@@ -40,8 +38,11 @@ open class Relation : AbstractElement, IRelation {
 
     override fun toString(): String {
         return String.format(
-            "%s [name=%s, confidence=%s, interpretation=%s, elements=%s]",  //
-            this.javaClass.simpleName, this.name(), this.currentConfidence(), currentInterpretation(), connectedElements().map { e -> e.name() }
-        )
+            "%s [name=%s, confidence=%s, interpretation=%s, elements=%s]", //
+            this.javaClass.simpleName,
+            this.name(),
+            this.currentConfidence(),
+            currentInterpretation(),
+            connectedElements().map { e -> e.name() })
     }
 }

@@ -7,7 +7,6 @@ abstract class UMLThing protected constructor() : Box(), IUMLThing {
     private val attributes: MutableList<String> = mutableListOf()
     private val methods: MutableList<String> = mutableListOf()
 
-
     override fun addAttribute(attribute: String) {
         attributes.add(attribute)
     }
@@ -31,5 +30,4 @@ abstract class UMLThing protected constructor() : Box(), IUMLThing {
     override fun methods(): List<String> {
         return methods
     }
-
 }

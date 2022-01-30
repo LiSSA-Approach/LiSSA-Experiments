@@ -22,11 +22,13 @@ class UMLAssociation : Relation(), IUMLAssociation {
     override fun currentInterpretation() = SketchRelationTypes.CLASS_ASSOCIATION
 
     override fun umlThingsInAssociation() = connectedElements().filterIsInstance<IUMLThing>()
-    override fun addUMLThingToAssociation(classOrInterface: IUMLThing) = super.addToAssociation(classOrInterface)
-    override fun delUMLThingFromAssociation(classOrInterface: IUMLThing) = super.delFromAssociation(classOrInterface)
+    override fun addUMLThingToAssociation(classOrInterface: IUMLThing) =
+        super.addToAssociation(classOrInterface)
+    override fun delUMLThingFromAssociation(classOrInterface: IUMLThing) =
+        super.delFromAssociation(classOrInterface)
 
-    override fun addToAssociation(element: IBox): Unit = throw IllegalAccessError("You shall only use #addUMLThingToAssociation")
-    override fun delFromAssociation(element: IBox): Unit = throw IllegalAccessError("You shall only use #delUMLThingFromAssociation")
-
-
+    override fun addToAssociation(element: IBox): Unit =
+        throw IllegalAccessError("You shall only use #addUMLThingToAssociation")
+    override fun delFromAssociation(element: IBox): Unit =
+        throw IllegalAccessError("You shall only use #delUMLThingFromAssociation")
 }
