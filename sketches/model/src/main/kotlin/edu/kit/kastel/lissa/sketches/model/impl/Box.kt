@@ -21,6 +21,7 @@ open class Box : AbstractElement, IBox {
             this.javaClass.simpleName,
             this.name(),
             this.currentConfidence(),
-            currentInterpretation())
+            currentInterpretation()
+        )
     }
 }

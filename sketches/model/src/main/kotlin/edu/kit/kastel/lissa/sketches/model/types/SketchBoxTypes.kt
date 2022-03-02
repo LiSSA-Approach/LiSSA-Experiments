@@ -20,7 +20,8 @@ enum class SketchBoxTypes {
                 this,
                 SketchBoxTypeMapping::class,
                 annotation2EnumValue = { a -> a.type },
-                annotation2Class = { a -> a.implementation })
+                annotation2Class = { a -> a.implementation }
+            )
 
         logger.debug("Created compatible object for $this: $o")
         return o

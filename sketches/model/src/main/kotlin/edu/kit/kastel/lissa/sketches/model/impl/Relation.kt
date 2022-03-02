@@ -43,6 +43,7 @@ open class Relation : AbstractElement, IRelation {
             this.name(),
             this.currentConfidence(),
             currentInterpretation(),
-            connectedElements().map { e -> e.name() })
+            connectedElements().map { e -> e.name() }
+        )
     }
 }

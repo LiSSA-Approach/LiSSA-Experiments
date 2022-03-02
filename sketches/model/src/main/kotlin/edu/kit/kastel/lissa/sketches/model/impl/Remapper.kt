@@ -33,14 +33,16 @@ fun <A : Annotation, T : Any, R : ISketchElement> createCompatibleObject(
         annotation2Class(targetType.java.getDeclaredAnnotation(annotationType.java))
     require(
         type.isSubclassOf(AbstractElement::class) &&
-            element::class.isSubclassOf(AbstractElement::class)) {
+            element::class.isSubclassOf(AbstractElement::class)
+    ) {
         "Mapping is only supported for subtypes of " + AbstractElement::class.java
     }
     return try {
         map(
             element as AbstractElement,
             element::class as KClass<out AbstractElement>,
-            type as KClass<out AbstractElement>) as
+            type as KClass<out AbstractElement>
+        ) as
             R
     } catch (e: Exception) {
         throw IllegalArgumentException(e)

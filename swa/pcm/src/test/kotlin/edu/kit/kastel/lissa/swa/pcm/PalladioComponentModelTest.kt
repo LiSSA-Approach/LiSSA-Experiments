@@ -1,8 +1,8 @@
 package edu.kit.kastel.lissa.swa.pcm
 
-import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertTrue
 
 class PalladioComponentModelTest : TestBase() {
 

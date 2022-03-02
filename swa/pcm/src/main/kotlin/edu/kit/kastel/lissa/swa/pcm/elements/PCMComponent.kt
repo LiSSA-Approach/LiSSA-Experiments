@@ -21,14 +21,16 @@ data class PCMComponent(
                     individual,
                     ontology,
                     "providedRoles_InterfaceProvidingEntity_-_InterfaceProvidingEntity",
-                    "providedInterface__OperationProvidedRole_-_OperationProvidedRole")
+                    "providedInterface__OperationProvidedRole_-_OperationProvidedRole"
+                )
 
             val requiredInterfaceIds =
                 handleRoles(
                     individual,
                     ontology,
                     "requiredRoles_InterfaceRequiringEntity_-_InterfaceRequiringEntity",
-                    "requiredInterface__OperationRequiredRole_-_OperationRequiredRole")
+                    "requiredInterface__OperationRequiredRole_-_OperationRequiredRole"
+                )
 
             return PCMComponent(id, name, providedInterfaceIds, requiredInterfaceIds)
         }

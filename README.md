@@ -1,4 +1,5 @@
-# LiSSA-Core 
+# LiSSA-Core
+
 ![Maven Deploy (Dev)](https://github.com/LiSSA-Approach/LiSSA-Core/workflows/Maven%20Deploy%20(Dev)/badge.svg)
 [![Latest Release](https://img.shields.io/github/release/LiSSA-Approach/LiSSA-Core.svg)](https://github.com/LiSSA-Approach/LiSSA-Core/releases/latest)
 [![GitHub issues](https://img.shields.io/github/issues/LiSSA-Approach/LiSSA-Core.svg?style=square)](https://github.com/LiSSA-Approach/LiSSA-Core/issues)
@@ -7,8 +8,7 @@
 
 The core code of the [Linking Sketches and Software Architecture (LiSSA)](https://github.com/LiSSA-Approach) approach
 
-
-This approach is part of the *[Informal and Formal Artifacts Linker (InFormALin)](https://informalin.github.io/)*.
-It aims to connect sketches (such as class diagrams, component diagrams, ..) with formal models like component models.
+This approach is part of the *[Informal and Formal Artifacts Linker (InFormALin)](https://informalin.github.io/)*. It aims to connect sketches (such as class diagrams, component diagrams, ..) with
+formal models like component models.
 
 **More information will follow in the future ..**
