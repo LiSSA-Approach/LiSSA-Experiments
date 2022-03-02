@@ -10,7 +10,7 @@ import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypeMapping
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes
 import java.io.Serializable
-import java.util.*
+import java.util.IdentityHashMap
 import kotlin.reflect.KClass
 
 class Sketch : Serializable, ISketch {
