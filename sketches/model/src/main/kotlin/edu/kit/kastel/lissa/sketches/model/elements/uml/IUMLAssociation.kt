@@ -5,10 +5,16 @@ import edu.kit.kastel.lissa.sketches.model.impl.elements.uml.UMLAssociation
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypeMapping
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes
 
-@SketchRelationTypeMapping(type = SketchRelationTypes.CLASS_ASSOCIATION, implementation = UMLAssociation::class)
+@SketchRelationTypeMapping(
+    type = SketchRelationTypes.CLASS_ASSOCIATION, implementation = UMLAssociation::class)
 interface IUMLAssociation : IRelation {
     enum class AssociationType {
-        UNKNOWN, GENERALIZATION, REALIZATION, AGGREGATION, COMPOSITION, N_ARY_ASSOCIATION
+        UNKNOWN,
+        GENERALIZATION,
+        REALIZATION,
+        AGGREGATION,
+        COMPOSITION,
+        N_ARY_ASSOCIATION
     }
 
     fun getAssociationType(): AssociationType?

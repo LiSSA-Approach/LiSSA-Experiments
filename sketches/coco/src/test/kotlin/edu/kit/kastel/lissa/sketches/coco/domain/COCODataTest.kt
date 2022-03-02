@@ -1,13 +1,11 @@
 package edu.kit.kastel.lissa.sketches.coco.domain
 
-
 import com.fasterxml.jackson.module.kotlin.readValue
 import edu.kit.kastel.lissa.sketches.coco.TestBase
+import java.io.File
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import java.io.File
-
 
 class COCODataTest : TestBase() {
 
@@ -16,7 +14,8 @@ class COCODataTest : TestBase() {
     fun simpleFilter() {
         val maxAmount = 10
         val data: COCOData =
-            objectMapper.readValue(COCODataTest::class.java.getResourceAsStream("/sample/train.json")!!)
+            objectMapper.readValue(
+                COCODataTest::class.java.getResourceAsStream("/sample/train.json")!!)
         val images = data.images.filter { i -> i.id < maxAmount }
         val annotations = data.annotations.filter { a -> a.imageId < maxAmount }
         val newData = COCOData(images, annotations, data.categories)
@@ -31,6 +30,4 @@ class COCODataTest : TestBase() {
         assertThat(data::annotations).isNotEmpty()
         assertThat(data::categories).isNotEmpty()
     }
-
-
 }

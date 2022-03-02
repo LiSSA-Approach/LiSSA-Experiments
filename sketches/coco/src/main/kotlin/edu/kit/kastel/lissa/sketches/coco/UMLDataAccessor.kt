@@ -12,6 +12,4 @@ class UMLDataAccessor(private val data: COCOData) {
         val classCategory = data.categories.find { c -> c.name == CLASS_CATEGORY }!!
         return data.annotations.filter { a -> a.categoryId == classCategory.id }
     }
-
-
 }

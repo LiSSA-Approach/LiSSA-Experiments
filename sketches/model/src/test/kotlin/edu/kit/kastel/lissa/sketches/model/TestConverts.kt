@@ -5,10 +5,10 @@ import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLClass
 import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLInterface
 import edu.kit.kastel.lissa.sketches.model.impl.Box
 import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
+import kotlin.test.assertEquals
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 class TestConverts : TestBase() {
     private var boxElement: Box? = null
@@ -31,10 +31,7 @@ class TestConverts : TestBase() {
     @Test
     fun convertIllegal() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            SketchBoxTypes.CLASS.map(
-                boxElement!!,
-                IUMLInterface::class
-            )
+            SketchBoxTypes.CLASS.map(boxElement!!, IUMLInterface::class)
         }
     }
 }

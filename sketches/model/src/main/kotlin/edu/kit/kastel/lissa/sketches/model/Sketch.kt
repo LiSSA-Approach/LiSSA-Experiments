@@ -74,11 +74,18 @@ class Sketch : Serializable, ISketch {
     }
 
     fun getElementsByType(type: SketchRelationTypes): List<IRelation> {
-        return this.getRelationElements().filter { e: IRelation -> e.currentInterpretation() == type }
+        return this.getRelationElements().filter { e: IRelation ->
+            e.currentInterpretation() == type
+        }
     }
 
     private fun elemAsData(element: ISketchElement): AbstractElement {
-        require(element is AbstractElement) { "You can only use elements based on " + AbstractElement::class.java + " with " + Sketch::class.java }
+        require(element is AbstractElement) {
+            "You can only use elements based on " +
+                AbstractElement::class.java +
+                " with " +
+                Sketch::class.java
+        }
         return element
     }
 

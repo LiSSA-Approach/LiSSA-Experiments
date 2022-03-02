@@ -15,9 +15,12 @@ class TestIT : TestBase() {
         sketch.addSketchElement(Box("Component B", 0.6))
         sketch.changeInterpretation(sketch.getBoxElements()[0], IUMLClass::class)
         sketch.addSketchElement(Relation("Relation 1", 0.5))
-        val assoc = sketch.changeInterpretation(sketch.getRelationElements()[0], IUMLAssociation::class)
+        val assoc =
+            sketch.changeInterpretation(sketch.getRelationElements()[0], IUMLAssociation::class)
 
-        sketch.getBoxElements(IUMLThing::class).forEach { e: IUMLThing -> assoc.addUMLThingToAssociation(e) }
+        sketch.getBoxElements(IUMLThing::class).forEach { e: IUMLThing ->
+            assoc.addUMLThingToAssociation(e)
+        }
         println(sketch)
     }
 }

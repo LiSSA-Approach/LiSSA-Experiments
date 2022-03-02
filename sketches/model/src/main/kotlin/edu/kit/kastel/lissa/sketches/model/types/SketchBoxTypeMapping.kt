@@ -6,4 +6,7 @@ import kotlin.reflect.KClass
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
-annotation class SketchBoxTypeMapping(val type: SketchBoxTypes, val implementation: KClass<out ISketchElement>)
+annotation class SketchBoxTypeMapping(
+    val type: SketchBoxTypes,
+    val implementation: KClass<out ISketchElement>
+)

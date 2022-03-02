@@ -3,8 +3,7 @@ package edu.kit.kastel.lissa.sketches.model.impl
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement
 
 abstract class AbstractElement protected constructor() : ISketchElement {
-    @Transient
-    val rawData: MutableMap<String, Any> = mutableMapOf()
+    @Transient val rawData: MutableMap<String, Any> = mutableMapOf()
 
     private var nameValue: String = ""
     private var currentConfidenceValue = 0.0
@@ -21,8 +20,9 @@ abstract class AbstractElement protected constructor() : ISketchElement {
 
     override fun toString(): String {
         return String.format(
-            "%s [name=%s, confidence=%s]",  //
-            this.javaClass.simpleName, nameValue, currentConfidenceValue
-        )
+            "%s [name=%s, confidence=%s]", //
+            this.javaClass.simpleName,
+            nameValue,
+            currentConfidenceValue)
     }
 }

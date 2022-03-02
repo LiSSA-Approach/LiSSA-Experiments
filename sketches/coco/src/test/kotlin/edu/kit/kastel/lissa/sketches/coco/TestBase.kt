@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import edu.kit.kastel.lissa.sketches.coco.domain.COCODataTest
-import org.junit.jupiter.api.BeforeEach
 import java.io.InputStream
+import org.junit.jupiter.api.BeforeEach
 
 open class TestBase {
 
@@ -21,15 +21,18 @@ open class TestBase {
     }
 
     private fun createObjectMapper(): ObjectMapper {
-        val objectMapper: ObjectMapper = ObjectMapper().configure(SerializationFeature.INDENT_OUTPUT, true)
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        val objectMapper: ObjectMapper =
+            ObjectMapper()
+                .configure(SerializationFeature.INDENT_OUTPUT, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         objectMapper.setVisibility(
-            objectMapper.serializationConfig.defaultVisibilityChecker //
+            objectMapper
+                .serializationConfig
+                .defaultVisibilityChecker //
                 .withFieldVisibility(JsonAutoDetect.Visibility.ANY) //
                 .withGetterVisibility(JsonAutoDetect.Visibility.NONE) //
                 .withSetterVisibility(JsonAutoDetect.Visibility.NONE) //
-                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE)
-        )
+                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE))
         return objectMapper.registerKotlinModule()
     }
 }

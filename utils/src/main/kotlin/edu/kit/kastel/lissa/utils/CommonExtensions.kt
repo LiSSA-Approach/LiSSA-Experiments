@@ -3,7 +3,6 @@ package edu.kit.kastel.lissa.utils
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.Logger
 
-
 private var debug = false
 
 fun enableDebug() {

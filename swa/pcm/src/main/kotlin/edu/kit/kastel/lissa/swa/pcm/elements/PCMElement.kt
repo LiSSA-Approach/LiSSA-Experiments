@@ -6,5 +6,6 @@ interface PCMElement {
 }
 
 enum class PCMElementType {
-    COMPONENT, INTERFACE
+    COMPONENT,
+    INTERFACE
 }

@@ -17,8 +17,10 @@ open class Box : AbstractElement, IBox {
 
     override fun toString(): String {
         return String.format(
-            "%s [name=%s, confidence=%s, interpretation=%s]",  //
-            this.javaClass.simpleName, this.name(), this.currentConfidence(), currentInterpretation()
-        )
+            "%s [name=%s, confidence=%s, interpretation=%s]", //
+            this.javaClass.simpleName,
+            this.name(),
+            this.currentConfidence(),
+            currentInterpretation())
     }
 }
