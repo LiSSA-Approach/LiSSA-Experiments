@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test
 
 class UMLDataAccessorTest : TestBase() {
 
-    private var data: UMLDataAccessor? = null
+    private lateinit var data: UMLDataAccessor
 
     @BeforeEach
     fun simpleLoad() {
-        data = UMLDataAccessor(objectMapper.readValue(cocoFile!!))
+        data = UMLDataAccessor(objectMapper.readValue(cocoFile))
     }
 
     @Test
     fun loadClasses() {
-        assertThat(data!!.classes()).isNotEmpty
+        assertThat(data.classes()).isNotEmpty
     }
 }

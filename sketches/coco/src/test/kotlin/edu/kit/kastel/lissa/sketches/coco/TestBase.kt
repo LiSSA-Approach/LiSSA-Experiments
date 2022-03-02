@@ -13,7 +13,7 @@ open class TestBase {
 
     protected val objectMapper: ObjectMapper = createObjectMapper()
 
-    protected var cocoFile: InputStream? = null
+    protected lateinit var cocoFile: InputStream
 
     @BeforeEach
     fun loadFile() {
