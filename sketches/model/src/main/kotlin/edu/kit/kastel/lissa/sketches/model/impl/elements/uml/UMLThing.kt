@@ -6,6 +6,7 @@ import edu.kit.kastel.lissa.sketches.model.impl.Box
 abstract class UMLThing protected constructor() : Box(), IUMLThing {
     private val attributes: MutableList<String> = mutableListOf()
     private val methods: MutableList<String> = mutableListOf()
+    private var umlId: String? = null
 
     override fun addAttribute(attribute: String) {
         attributes.add(attribute)
@@ -29,5 +30,13 @@ abstract class UMLThing protected constructor() : Box(), IUMLThing {
 
     override fun methods(): List<String> {
         return methods
+    }
+
+    override fun setUMLId(umlId: String) {
+        this.umlId = umlId
+    }
+
+    override fun umlId(): String {
+        return umlId!!
     }
 }

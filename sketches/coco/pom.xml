@@ -16,6 +16,10 @@
         </dependency>
         <dependency>
             <groupId>edu.kit.kastel.lissa</groupId>
+            <artifactId>sketches.model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>edu.kit.kastel.lissa</groupId>
             <artifactId>utils</artifactId>
         </dependency>
     </dependencies>
