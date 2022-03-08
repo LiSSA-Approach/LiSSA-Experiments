@@ -10,60 +10,54 @@ import kotlin.reflect.jvm.isAccessible
 private const val DATA = "rawData"
 
 /**
- * This function converts an [AbstractElement][element] to a specific type [R]. [typeEnumValue]
+ * This function converts an [AbstractElement][element] to a specific type [TargetClass]. [typeEnumValue]
  * defines the expected value from an enum of all possible types (identified by
  * [annotation2EnumValue]). [annotationType] defines the type of annotation to use to extract meta
  * information from the [targetType]. [annotation2Class] defines a function to extract the actual
- * implementation of [R] from [A]
+ * implementation of [TargetClass] from [MetaAnnotation]
  */
 @Suppress("UNCHECKED_CAST")
-fun <A : Annotation, T : Any, R : ISketchElement> createCompatibleObject(
+fun <MetaAnnotation : Annotation, TargetClassTypeEnumValue : Enum<*>, TargetClass : ISketchElement> createCompatibleObject(
     element: ISketchElement,
-    targetType: KClass<R>,
-    typeEnumValue: T,
-    annotationType: KClass<A>,
-    annotation2Class: (A) -> KClass<out ISketchElement>,
-    annotation2EnumValue: (A) -> T
-): R {
-
-    require(isValidType(annotationType, annotation2EnumValue, targetType.java, typeEnumValue)) {
-        targetType.simpleName + " is not marked as possible type via " + annotationType.java
-    }
-    val type: KClass<out ISketchElement> =
-        annotation2Class(targetType.java.getDeclaredAnnotation(annotationType.java))
+    targetType: KClass<TargetClass>,
+    typeEnumValue: TargetClassTypeEnumValue,
+    annotationType: KClass<MetaAnnotation>,
+    annotation2Class: (MetaAnnotation) -> KClass<out ISketchElement>,
+    annotation2EnumValue: (MetaAnnotation) -> TargetClassTypeEnumValue
+): TargetClass {
     require(
-        type.isSubclassOf(AbstractElement::class) &&
-            element::class.isSubclassOf(AbstractElement::class)
-    ) {
-        "Mapping is only supported for subtypes of " + AbstractElement::class.java
-    }
+        isValidType(annotationType, annotation2EnumValue, targetType.java, typeEnumValue)
+    ) { targetType.simpleName + " is not marked as possible type via " + annotationType.java }
+
+    val type: KClass<out ISketchElement> = annotation2Class(targetType.java.getDeclaredAnnotation(annotationType.java))
+    require(type.isSubclassOf(AbstractElement::class) && element::class.isSubclassOf(AbstractElement::class)) { "Mapping is only supported for subtypes of " + AbstractElement::class.java }
+
     return try {
         map(
             element as AbstractElement,
             element::class as KClass<out AbstractElement>,
             type as KClass<out AbstractElement>
-        ) as
-            R
+        ) as TargetClass
     } catch (e: Exception) {
         throw IllegalArgumentException(e)
     }
 }
 
-fun <A : Annotation, T : Any> findByClass(
+fun <MetaAnnotation : Annotation, TargetClassTypeEnumValue : Enum<*>> findByClass(
     type: KClass<out ISketchElement>,
-    annotationType: KClass<A>,
-    annotation2EnumValue: (A) -> T
-): T {
+    annotationType: KClass<MetaAnnotation>,
+    annotation2EnumValue: (MetaAnnotation) -> TargetClassTypeEnumValue
+): TargetClassTypeEnumValue {
     val mapping = type.annotations.find { a -> annotationType.isInstance(a) }
     if (mapping != null) {
-        @Suppress("UNCHECKED_CAST") return annotation2EnumValue(mapping as A)
+        @Suppress("UNCHECKED_CAST") return annotation2EnumValue(mapping as MetaAnnotation)
     }
     throw IllegalArgumentException("Can't find a suitable type for class $type")
 }
 
-private fun <A : Annotation, T : Any> isValidType(
-    annotationType: KClass<A>,
-    annotation2EnumValue: (A) -> T,
+private fun <MetaAnnotation : Annotation, TargetClassTypeEnumValue : Any> isValidType(
+    annotationType: KClass<MetaAnnotation>,
+    annotation2EnumValue: (MetaAnnotation) -> TargetClassTypeEnumValue,
     type: Class<*>?,
     typeEnumValue: Any
 ): Boolean {
@@ -82,11 +76,11 @@ private fun <A : Annotation, T : Any> isValidType(
     return annotation2EnumValue(mapping) == typeEnumValue
 }
 
-fun <I : AbstractElement, O : AbstractElement> map(
-    input: I,
-    inputClass: KClass<out I>,
-    outputClass: KClass<out O>
-): O {
+fun <InputElement : AbstractElement, OutputElement : AbstractElement> map(
+    input: InputElement,
+    inputClass: KClass<out InputElement>,
+    outputClass: KClass<out OutputElement>
+): OutputElement {
     val data = getData(input)
     val dataOfInput: MutableMap<String, Any> = HashMap()
     getOwnData(dataOfInput, input, inputClass)
@@ -98,13 +92,12 @@ fun <I : AbstractElement, O : AbstractElement> map(
     return newO
 }
 
-private fun <O : AbstractElement> createOutputObject(
-    outputClass: KClass<O>,
+private fun <OutputElement : AbstractElement> createOutputObject(
+    outputClass: KClass<OutputElement>,
     data: MutableMap<String, Any>
-): O {
-    val constructor =
-        outputClass.constructors.find { c -> c.parameters.isEmpty() }
-            ?: throw IllegalStateException("${outputClass.java} has no suitable constructor!")
+): OutputElement {
+    val constructor = outputClass.constructors.find { c -> c.parameters.isEmpty() }
+        ?: throw IllegalStateException("${outputClass.java} has no suitable constructor!")
     constructor.isAccessible = true
     val o = constructor.call()
     val dataField = AbstractElement::class.java.getDeclaredField(DATA)
@@ -136,8 +129,8 @@ private fun getOwnData(
     getOwnData(dataOfI, input, inputClass.superclass())
 }
 
-private fun <O : AbstractElement?> fillElements(
-    newO: O,
+private fun <OutputElement : AbstractElement?> fillElements(
+    newO: OutputElement,
     currentClass: KClass<*>?,
     data: MutableMap<String, Any>
 ) {
@@ -169,5 +162,4 @@ private fun getData(input: AbstractElement): MutableMap<String, Any> {
     return dataField[input] as MutableMap<String, Any>
 }
 
-private fun KClass<*>.superclass(): KClass<*>? =
-    superclasses.firstOrNull { cls -> !cls.java.isInterface }
+private fun KClass<*>.superclass(): KClass<*>? = superclasses.firstOrNull { cls -> !cls.java.isInterface }
