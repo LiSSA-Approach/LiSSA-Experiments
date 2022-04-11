@@ -4,7 +4,7 @@
     <parent>
         <groupId>edu.kit.kastel.lissa</groupId>
         <artifactId>sketches</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>sketches.coco</artifactId>
