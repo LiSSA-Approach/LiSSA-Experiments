@@ -5,9 +5,9 @@ import edu.kit.kastel.lissa.sketches.coco.domain.COCODataTest
 import edu.kit.kastel.lissa.sketches.model.logger
 import edu.kit.kastel.lissa.utils.createObjectMapper
 import edu.kit.kastel.lissa.utils.setLogLevel
-import org.apache.logging.log4j.Level
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
+import org.slf4j.spi.LocationAwareLogger
 import java.io.InputStream
 
 open class TestBase {
@@ -20,7 +20,7 @@ open class TestBase {
         @BeforeAll
         @JvmStatic
         fun loggerStateDebug() {
-            logger.setLogLevel(Level.DEBUG)
+            logger.setLogLevel(LocationAwareLogger.DEBUG_INT)
         }
     }
 

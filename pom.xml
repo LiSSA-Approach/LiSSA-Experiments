@@ -4,8 +4,8 @@
 
     <parent>
         <groupId>edu.kit.kastel.informalin</groupId>
-        <artifactId>parent</artifactId>
-        <version>0.4-SNAPSHOT</version>
+        <artifactId>framework</artifactId>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>edu.kit.kastel.lissa</groupId>
@@ -42,7 +42,7 @@
     </distributionManagement>
 
     <properties>
-        <revision>0.2-SNAPSHOT</revision>
+        <revision>0.3-SNAPSHOT</revision>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
@@ -60,36 +60,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>linking</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>sketches</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>sketches.coco</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>sketches.model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>swa.pcm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>utils</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
                 <version>${jackson.version}</version>
@@ -103,6 +73,36 @@
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-kotlin</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.kit.kastel.lissa</groupId>
+                <artifactId>linking</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.kit.kastel.lissa</groupId>
+                <artifactId>sketches</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.kit.kastel.lissa</groupId>
+                <artifactId>sketches.coco</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.kit.kastel.lissa</groupId>
+                <artifactId>sketches.model</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.kit.kastel.lissa</groupId>
+                <artifactId>swa.pcm</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.kit.kastel.lissa</groupId>
+                <artifactId>utils</artifactId>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -146,7 +146,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Apache Maven Packages InFormALin</name>
-            <url>https://maven.pkg.github.com/InFormALin/maven-parent</url>
+            <url>https://maven.pkg.github.com/InFormALin/Framework</url>
         </repository>
         <repository>
             <id>github-lissa</id>
@@ -161,7 +161,7 @@
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
                 <version>2.22.1</version>
-                <configuration>
+                <configuration combine.self="override">
                     <pom>
                         <sortPom>
                             <encoding>UTF-8</encoding>

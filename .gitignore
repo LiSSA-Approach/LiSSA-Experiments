@@ -97,3 +97,4 @@ release.properties
 
 .idea/
 *.iml
+.flattened-pom.xml
