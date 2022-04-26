@@ -17,6 +17,8 @@ jobs:
         with:
           docs-folder: "docs/"
           build-command: make html dirhtml
+      - name: Fix Deployment for GH Pages
+        run: touch docs/_build/dirhtml/.nojekyll
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
