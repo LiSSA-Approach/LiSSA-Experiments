@@ -21,5 +21,6 @@ An overview for the initial processing structure of InFormALin is presented in t
 
 .. figure:: images/informalin.svg
     :align: center
+    :class: white-image-bg
 
     The initial InFormALin Processing Schema
