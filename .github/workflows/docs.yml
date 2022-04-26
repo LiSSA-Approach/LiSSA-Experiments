@@ -16,12 +16,12 @@ jobs:
       - uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
-          build-command: make html
+          build-command: make html dirhtml
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           branch: gh-pages
-          folder: docs/_build/html/
+          folder: docs/_build/dirhtml/
           repository-name: LiSSA-Approach/LiSSA-Approach.github.io
           token: ${{ secrets.PAT_TOKEN }}
           clean: true
