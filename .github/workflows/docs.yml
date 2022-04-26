@@ -1,0 +1,29 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ammaraskar/sphinx-action@master
+        with:
+          docs-folder: "docs/"
+          build-command: make html
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages
+          folder: docs/_build/html/
+          repository-name: LiSSA-Approach/LiSSA-Approach.github.io
+          token: ${{ secrets.PAT_TOKEN }}
+          clean: true
+
+
