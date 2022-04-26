@@ -39,4 +39,4 @@ jobs:
           servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }, { "id": "github-lissa", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
 
       - name: Check Style
-        run: mvn -U -B spotless:check antrun:run@ktlint
+        run: mvn -U -B spotless:check ktlint:check

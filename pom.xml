@@ -181,48 +181,19 @@
                         <goals>
                             <goal>apply</goal>
                         </goals>
-                        <phase>clean</phase>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.pinterest</groupId>
-                        <artifactId>ktlint</artifactId>
-                        <version>0.45.2</version>
-                    </dependency>
-                </dependencies>
+                <groupId>com.github.gantsign.maven</groupId>
+                <artifactId>ktlint-maven-plugin</artifactId>
+                <version>1.13.1</version>
                 <executions>
                     <execution>
-                        <id>ktlint</id>
-                        <configuration>
-                            <target name="ktlint">
-                                <java classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath" dir="${basedir}" failonerror="true" fork="true" taskname="ktlint">
-                                    <arg value="src/**/*.kt"/>
-                                </java>
-                            </target>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>ktlint-format</id>
+                        <id>format</id>
                         <goals>
-                            <goal>run</goal>
+                            <goal>format</goal>
                         </goals>
-                        <phase>clean</phase>
-                        <configuration>
-                            <target name="ktlint">
-                                <java classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath" dir="${basedir}" failonerror="true" fork="true" taskname="ktlint">
-                                    <arg value="-F"/>
-                                    <arg value="src/**/*.kt"/>
-                                    <jvmarg value="--add-opens"/>
-                                    <jvmarg value="java.base/java.lang=ALL-UNNAMED"/>
-                                </java>
-                            </target>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
