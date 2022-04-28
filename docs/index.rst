@@ -11,6 +11,44 @@ The LiSSA Approach
 This approach is part of the `Informal and Formal Artifacts Linker (InFormALin) <https://informalin.github.io/>`__.
 It aims to connect sketches and informal diagrams (such as class diagrams, component diagrams, ..) with formal models like component models.
 
+Overview
+________
+
+.. uml::
+   :caption: The Architecture of LiSSA
+
+    package "CLI" {
+        component [CLI] as cli
+        interface Linker as ilink
+        cli -right-( ilink
+    }
+
+    package "Sketches" {
+        [Model] as smodel
+        [COCO] as coco
+
+        interface model as imodel
+        interface diagram as idiagram
+
+        coco -right- idiagram
+        coco -left-( imodel
+        smodel -right- imodel
+    }
+
+    package "Software Architecture (SWA)" {
+        [PCM] as pcm
+        interface Architecture as iarch
+        pcm -left- iarch
+    }
+
+    package "Linking" {
+        [Linking] as linking
+
+        linking -right- ilink
+        linking -right-( iarch
+        linking -down-( idiagram
+    }
+
 
 The Informal and Formal Artifacts Linker (InFormALin)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
