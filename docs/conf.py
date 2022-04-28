@@ -32,7 +32,11 @@ release = '0.3'
 # ones.
 extensions = ['sphinxcontrib.plantuml']
 
-plantuml = 'java -jar %s' % os.path.join(os.path.dirname(__file__), "bin", "plantuml.jar")
+is_ci = os.environ.get("CI") == "true"
+if is_ci:
+    plantuml = '/usr/bin/java -jar %s' % os.path.join(os.path.dirname(__file__), "bin", "plantuml.jar")
+else:
+    plantuml = 'java -jar %s' % os.path.join(os.path.dirname(__file__), "bin", "plantuml.jar")
 plantuml_output_format = "svg_img"
 
 # Add any paths that contain templates here, relative to this directory.

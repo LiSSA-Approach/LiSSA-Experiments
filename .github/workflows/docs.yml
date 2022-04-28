@@ -17,6 +17,7 @@ jobs:
         run: mkdir -p docs/_build/dirhtml/ && touch docs/_build/dirhtml/.nojekyll
       - uses: ammaraskar/sphinx-action@master
         with:
+          pre-build-command: "mkdir -p /usr/share/man/man1 && apt-get update --allow-releaseinfo-change -y && apt-get install -y openjdk-11-jre"
           docs-folder: "docs/"
           build-command: make html dirhtml
       - name: Deploy 🚀
