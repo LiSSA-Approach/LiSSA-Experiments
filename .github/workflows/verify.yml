@@ -3,11 +3,11 @@ name: Maven Verify
 on:
   push: # Ignore releases and main dev branch
     tags-ignore:
-      - 'v*' 
+      - 'v*'
     branches-ignore:
-     - 'main'
+      - 'main'
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,24 +18,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
 
-    - uses: actions/setup-java@v3
-      with:
-        java-version: 17
-        distribution: 'zulu'
-        
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-    
-    - name: maven-settings-xml-action
-      uses: whelk-io/maven-settings-xml-action@v20
-      with:
-        servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }, { "id": "github-lissa", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
-        
-    - name: Verify with Maven
-      run: mvn -U -B verify --file pom.xml
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: maven-settings-xml-action
+        uses: whelk-io/maven-settings-xml-action@v20
+        with:
+          servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }, { "id": "github-lissa", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
+
+      - name: Verify with Maven
+        run: mvn -U -B verify --file pom.xml
