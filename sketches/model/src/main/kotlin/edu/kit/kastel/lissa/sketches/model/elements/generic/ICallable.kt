@@ -1,10 +1,6 @@
-package edu.kit.kastel.lissa.sketches.model.elements.uml
+package edu.kit.kastel.lissa.sketches.model.elements.generic
 
-import edu.kit.kastel.lissa.sketches.model.elements.IBox
-
-interface IUMLThing : IBox {
-    fun setUMLId(umlId: String)
-    fun umlId(): String
+interface ICallable {
     fun addAttribute(attribute: String)
     fun delAttribute(attribute: String)
     fun attributes(): List<String>

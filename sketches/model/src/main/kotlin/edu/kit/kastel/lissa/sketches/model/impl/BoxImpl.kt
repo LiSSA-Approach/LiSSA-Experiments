@@ -3,7 +3,7 @@ package edu.kit.kastel.lissa.sketches.model.impl
 import edu.kit.kastel.lissa.sketches.model.elements.IBox
 import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
 
-open class Box : AbstractElement, IBox {
+open class BoxImpl : AbstractElement, IBox {
     constructor() {
         // NOP
     }

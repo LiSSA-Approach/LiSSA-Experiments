@@ -3,7 +3,7 @@ package edu.kit.kastel.lissa.sketches.model.types
 import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement
 import kotlin.reflect.KClass
 
-@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+@Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
 annotation class SketchRelationTypeMapping(

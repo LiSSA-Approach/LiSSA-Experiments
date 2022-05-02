@@ -6,4 +6,7 @@ import edu.kit.kastel.lissa.sketches.model.elements.IRelation
 interface ISketch {
     fun getCurrentInterpretation(element: IBox): IBox?
     fun getCurrentInterpretation(relation: IRelation): IRelation?
+
+    fun getBoxElements(): List<IBox>
+    fun getRelationElements(): List<IRelation>
 }

@@ -1,5 +1,6 @@
 package edu.kit.kastel.lissa.sketches.model.elements
 
+import edu.kit.kastel.lissa.sketches.model.types.SketchElementType
 import java.io.Serializable
 
 interface ISketchElement : Serializable {
@@ -8,4 +9,6 @@ interface ISketchElement : Serializable {
     fun currentConfidence(): Double
     fun setCurrentConfidence(confidence: Double)
     fun elementType(): SketchElementType
+    fun setId(id: String)
+    fun id(): String
 }

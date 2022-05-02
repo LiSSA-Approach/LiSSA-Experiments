@@ -10,12 +10,12 @@ import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypeMapping
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes
 import java.io.Serializable
-import java.util.IdentityHashMap
+import java.util.*
 import kotlin.reflect.KClass
 
 class Sketch : Serializable, ISketch {
-    private val boxElements = IdentityHashMap<MutableMap<String, Any>, IBox>()
-    private val relationElements = IdentityHashMap<MutableMap<String, Any>, IRelation>()
+    private val boxElements = IdentityHashMap<MutableMap<String, Serializable>, IBox>()
+    private val relationElements = IdentityHashMap<MutableMap<String, Serializable>, IRelation>()
 
     fun addSketchElement(element: IBox) {
         val elemAsBox = elemAsData(element)
@@ -53,7 +53,7 @@ class Sketch : Serializable, ISketch {
         return newInterpretation
     }
 
-    fun getBoxElements(): List<IBox> {
+    override fun getBoxElements(): List<IBox> {
         return boxElements.values.toList()
     }
 
@@ -61,7 +61,7 @@ class Sketch : Serializable, ISketch {
         return this.getBoxElements().filterIsInstance(type.java)
     }
 
-    fun getRelationElements(): List<IRelation> {
+    override fun getRelationElements(): List<IRelation> {
         return relationElements.values.toList()
     }
 

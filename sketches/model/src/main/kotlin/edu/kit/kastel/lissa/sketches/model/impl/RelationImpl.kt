@@ -5,7 +5,7 @@ import edu.kit.kastel.lissa.sketches.model.elements.IBox
 import edu.kit.kastel.lissa.sketches.model.elements.IRelation
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes
 
-open class Relation : AbstractElement, IRelation {
+open class RelationImpl : AbstractElement, IRelation {
 
     private val connectedElements: MutableList<IBox> = mutableListOf()
 

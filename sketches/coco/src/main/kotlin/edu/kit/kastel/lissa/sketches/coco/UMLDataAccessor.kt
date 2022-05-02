@@ -3,10 +3,11 @@ package edu.kit.kastel.lissa.sketches.coco
 import edu.kit.kastel.lissa.sketches.coco.domain.COCOAnnotation
 import edu.kit.kastel.lissa.sketches.coco.domain.COCOData
 import edu.kit.kastel.lissa.sketches.model.Sketch
-import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLAssociation
-import edu.kit.kastel.lissa.sketches.model.elements.uml.IUMLClass
-import edu.kit.kastel.lissa.sketches.model.impl.Box
-import edu.kit.kastel.lissa.sketches.model.impl.Relation
+import edu.kit.kastel.lissa.sketches.model.elements.class_diagram.AssociationType
+import edu.kit.kastel.lissa.sketches.model.elements.class_diagram.IAssociation
+import edu.kit.kastel.lissa.sketches.model.elements.class_diagram.IClass
+import edu.kit.kastel.lissa.sketches.model.impl.BoxImpl
+import edu.kit.kastel.lissa.sketches.model.impl.RelationImpl
 
 class UMLDataAccessor(private val data: COCOData) {
     companion object {
@@ -50,26 +51,26 @@ class UMLDataAccessor(private val data: COCOData) {
     private fun createAssociation(association: COCOAnnotation) {
         val element1 = findClassById(association.arrowStart!!)
         val element2 = findClassById(association.arrowEnd!!)
-        val relation = Relation(association.umlId, 1.0)
+        val relation = RelationImpl(association.umlId, 1.0)
         relation.addToAssociation(element1)
         relation.addToAssociation(element2)
         sketch.addSketchElement(relation)
-        val umlAssociation = sketch.changeInterpretation(relation, IUMLAssociation::class)
-        umlAssociation.setAssociationType(IUMLAssociation.AssociationType.UNKNOWN)
+        val umlAssociation = sketch.changeInterpretation(relation, IAssociation::class)
+        umlAssociation.setAssociationType(AssociationType.UNKNOWN)
     }
 
-    private fun findClassById(id: Int): IUMLClass {
+    private fun findClassById(id: Int): IClass {
         val classes = findByCategory(CLASS_CATEGORY)
         val clazz = classes.find { c -> c.id == id }!!
-        return sketch.getBoxElements(IUMLClass::class).find { c -> c.umlId() == clazz.umlId }!!
+        return sketch.getBoxElements(IClass::class).find { c -> c.id() == clazz.umlId }!!
     }
 
     private fun createClass(clazz: COCOAnnotation, labels: List<COCOAnnotation>) {
         val name = labels.find { l -> l.belongsTo == clazz.id && l.labelType == "name" }?.name
-        val box = Box(name ?: clazz.umlId, 1.0)
+        val box = BoxImpl(name ?: clazz.umlId, 1.0)
         sketch.addSketchElement(box)
-        val umlClass = sketch.changeInterpretation(box, IUMLClass::class)
-        umlClass.setUMLId(clazz.umlId)
+        val umlClass = sketch.changeInterpretation(box, IClass::class)
+        umlClass.setId(clazz.umlId)
     }
 
     private fun findByCategory(category: String): List<COCOAnnotation> {

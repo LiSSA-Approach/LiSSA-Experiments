@@ -1,11 +1,12 @@
 package edu.kit.kastel.lissa.sketches.model.elements
 
 import edu.kit.kastel.lissa.sketches.model.ISketch
-import edu.kit.kastel.lissa.sketches.model.impl.Relation
+import edu.kit.kastel.lissa.sketches.model.impl.RelationImpl
+import edu.kit.kastel.lissa.sketches.model.types.SketchElementType
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypeMapping
 import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes
 
-@SketchRelationTypeMapping(type = SketchRelationTypes.UNKNOWN, implementation = Relation::class)
+@SketchRelationTypeMapping(type = SketchRelationTypes.UNKNOWN, implementation = RelationImpl::class)
 interface IRelation : ISketchElement {
     fun currentInterpretation(): SketchRelationTypes
 
