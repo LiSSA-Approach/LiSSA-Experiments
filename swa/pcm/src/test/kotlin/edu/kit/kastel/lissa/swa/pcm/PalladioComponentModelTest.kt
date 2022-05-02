@@ -6,19 +6,20 @@ import kotlin.test.assertTrue
 
 class PalladioComponentModelTest : TestBase() {
 
-    private var palladioComponentModel: PalladioComponentModel? = null
+    private lateinit var palladioComponentModel: PalladioComponentModel
 
     @BeforeEach
     fun setUp() {
-        palladioComponentModel = PalladioComponentModel("src/test/resources/models/mediastore.owl")
+        palladioComponentModel =
+            PalladioComponentModel("src/test/resources/benchmark/mediastore/original_model/ms.repository")
     }
 
     @Test
     fun testExistence() {
-        assertTrue { palladioComponentModel!!.interfaces().isNotEmpty() }
-        assertTrue { palladioComponentModel!!.components().isNotEmpty() }
-        palladioComponentModel!!.components().map { c ->
-            assertTrue { palladioComponentModel!!.providedInterfaces(c).isNotEmpty() }
+        assertTrue { palladioComponentModel.interfaces().isNotEmpty() }
+        assertTrue { palladioComponentModel.components().isNotEmpty() }
+        palladioComponentModel.components().map { c ->
+            assertTrue { c.provided.isNotEmpty() }
         }
     }
 }

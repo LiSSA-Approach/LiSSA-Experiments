@@ -11,10 +11,8 @@
     <dependencies>
         <dependency>
             <groupId>edu.kit.kastel.informalin</groupId>
-            <artifactId>ontology-connector</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <artifactId>models</artifactId>
         </dependency>
-
         <dependency>
             <groupId>edu.kit.kastel.lissa</groupId>
             <artifactId>utils</artifactId>

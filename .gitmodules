@@ -1,0 +1,3 @@
+[submodule "swa/pcm/src/test/resources/benchmark"]
+	path = swa/pcm/src/test/resources/benchmark
+	url = https://github.com/ArDoCo/Benchmark
