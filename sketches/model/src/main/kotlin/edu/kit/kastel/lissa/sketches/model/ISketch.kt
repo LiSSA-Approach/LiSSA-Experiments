@@ -1,12 +1,11 @@
 package edu.kit.kastel.lissa.sketches.model
 
-import edu.kit.kastel.lissa.sketches.model.elements.IBox
-import edu.kit.kastel.lissa.sketches.model.elements.IRelation
+import edu.kit.kastel.lissa.sketches.model.elements.SketchElement
+import edu.kit.kastel.lissa.sketches.model.elements.SketchElementType
+import edu.kit.kastel.lissa.sketches.model.elements.wrapper.ISketchNode
 
 interface ISketch {
-    fun getCurrentInterpretation(element: IBox): IBox?
-    fun getCurrentInterpretation(relation: IRelation): IRelation?
-
-    fun getBoxElements(): List<IBox>
-    fun getRelationElements(): List<IRelation>
+    fun findById(uuid: String): SketchElement
+    fun addSketchElement(name: String, confidence: Double, type: SketchElementType): SketchElement
+    fun <E : ISketchNode> getElements(type: SketchElementType, typeAsClass: Class<E>): List<E>
 }

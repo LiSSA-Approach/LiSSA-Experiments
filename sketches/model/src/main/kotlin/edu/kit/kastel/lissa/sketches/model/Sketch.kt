@@ -1,111 +1,59 @@
 package edu.kit.kastel.lissa.sketches.model
 
-import edu.kit.kastel.lissa.sketches.model.elements.IBox
-import edu.kit.kastel.lissa.sketches.model.elements.IRelation
-import edu.kit.kastel.lissa.sketches.model.elements.ISketchElement
-import edu.kit.kastel.lissa.sketches.model.impl.AbstractElement
-import edu.kit.kastel.lissa.sketches.model.impl.findByClass
-import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypeMapping
-import edu.kit.kastel.lissa.sketches.model.types.SketchBoxTypes
-import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypeMapping
-import edu.kit.kastel.lissa.sketches.model.types.SketchRelationTypes
-import java.io.Serializable
-import java.util.*
-import kotlin.reflect.KClass
+import com.fasterxml.jackson.annotation.JsonProperty
+import edu.kit.kastel.lissa.sketches.model.elements.SketchElement
+import edu.kit.kastel.lissa.sketches.model.elements.SketchElementType
+import edu.kit.kastel.lissa.sketches.model.elements.wrapper.GenericNode
+import edu.kit.kastel.lissa.sketches.model.elements.wrapper.ISketchNode
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import java.lang.reflect.Constructor
+import java.lang.reflect.Modifier
 
-class Sketch : Serializable, ISketch {
-    private val boxElements = IdentityHashMap<MutableMap<String, Serializable>, IBox>()
-    private val relationElements = IdentityHashMap<MutableMap<String, Serializable>, IRelation>()
-
-    fun addSketchElement(element: IBox) {
-        val elemAsBox = elemAsData(element)
-        boxElements[elemAsBox.rawData] = element
+class Sketch : ISketch {
+    companion object {
+        val logger: Logger = LoggerFactory.getLogger(Sketch::class.java)
     }
 
-    fun addSketchElement(element: IRelation) {
-        val elemAsRelation = elemAsData(element)
-        relationElements[elemAsRelation.rawData] = element
+    @JsonProperty
+    private val elements: MutableList<SketchElement> = mutableListOf()
+
+    internal fun init() {
+        elements.forEach { it.init(this) }
     }
 
-    fun delSketchElement(element: IBox) {
-        val elemAsBox = elemAsData(element)
-        boxElements.remove(elemAsBox.rawData)
+    override fun findById(uuid: String): SketchElement = elements.find { it.uuid() == uuid }!!
+
+    override fun addSketchElement(name: String, confidence: Double, type: SketchElementType): SketchElement {
+        val sketchElement = SketchElement()
+        sketchElement.init(this)
+        val node = GenericNode(sketchElement, type)
+        node.setName(name)
+        node.setConfidence(confidence)
+        elements.add(sketchElement)
+        return sketchElement
     }
 
-    fun delSketchElement(element: IRelation) {
-        val elemAsRelation = elemAsData(element)
-        relationElements.remove(elemAsRelation.rawData)
+    override fun <E : ISketchNode> getElements(type: SketchElementType, typeAsClass: Class<E>): List<E> {
+        val elementsOfType = elements.filter { it.interpretation() == type }
+        val nodes: List<E> = elementsOfType.map { create(it, typeAsClass) }
+        logger.debug("Created ${nodes.size} nodes of type $typeAsClass")
+        return nodes
     }
 
-    fun <O : IBox> changeInterpretation(element: IBox, clazz: KClass<O>): O {
-        val type = findByClass(clazz, SketchBoxTypeMapping::class) { a -> a.type }
-        val elemAsBox = elemAsData(element)
-        val newInterpretation = type.map(elemAsBox, clazz)
-        boxElements[elemAsBox.rawData] = newInterpretation
-        return newInterpretation
-    }
-
-    fun <O : IRelation> changeInterpretation(element: IRelation, clazz: KClass<O>): O {
-        val type = findByClass(clazz, SketchRelationTypeMapping::class) { a -> a.type }
-        val elemAsBox = elemAsData(element)
-        val newInterpretation = type.map(elemAsBox, clazz)
-        relationElements[elemAsBox.rawData] = newInterpretation
-        return newInterpretation
-    }
-
-    override fun getBoxElements(): List<IBox> {
-        return boxElements.values.toList()
-    }
-
-    fun <B : IBox> getBoxElements(type: KClass<B>): List<B> {
-        return this.getBoxElements().filterIsInstance(type.java)
-    }
-
-    override fun getRelationElements(): List<IRelation> {
-        return relationElements.values.toList()
-    }
-
-    fun <R : IRelation> getRelationElements(type: KClass<R>): List<R> {
-        return this.getRelationElements().filterIsInstance(type.java)
-    }
-
-    fun getElementsByType(type: SketchBoxTypes): List<IBox> {
-        return this.getBoxElements().filter { e: IBox -> e.currentInterpretation() == type }
-    }
-
-    fun getElementsByType(type: SketchRelationTypes): List<IRelation> {
-        return this.getRelationElements().filter { e: IRelation ->
-            e.currentInterpretation() == type
+    private fun <E> create(sketchElement: SketchElement, typeAsClass: Class<E>): E {
+        try {
+            val constructor: Constructor<in E> = typeAsClass.getDeclaredConstructor(SketchElement::class.java)
+            if (!Modifier.isPublic(constructor.modifiers))
+                error("Constructor for ${typeAsClass.simpleName} is not public")
+            return typeAsClass.cast(constructor.newInstance(sketchElement))
+        } catch (e: Exception) {
+            logger.error(e.message, e)
+            error("Cannot find constructor using ${SketchElement::class.java.simpleName}")
         }
-    }
-
-    private fun elemAsData(element: ISketchElement): AbstractElement {
-        require(element is AbstractElement) {
-            "You can only use elements based on " +
-                AbstractElement::class.java +
-                " with " +
-                Sketch::class.java
-        }
-        return element
-    }
-
-    override fun getCurrentInterpretation(element: IBox): IBox? {
-        return boxElements[elemAsData(element).rawData]
-    }
-
-    override fun getCurrentInterpretation(relation: IRelation): IRelation? {
-        return relationElements[elemAsData(relation).rawData]
     }
 
     override fun toString(): String {
-        var result = "Sketch:\n"
-        for (element in this.getBoxElements().sortedBy { e -> e.name() }) {
-            result += "$element\n"
-        }
-        result += "\n"
-        for (element in this.getRelationElements().sortedBy { e -> e.name() }) {
-            result += "$element\n"
-        }
-        return result.trim()
+        return "Sketch {\n${elements.joinToString("\n") { "\t$it" }}\n}"
     }
 }

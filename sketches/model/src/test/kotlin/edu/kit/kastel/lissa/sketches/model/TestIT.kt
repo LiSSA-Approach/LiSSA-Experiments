@@ -1,28 +1,21 @@
 package edu.kit.kastel.lissa.sketches.model
 
-import edu.kit.kastel.lissa.sketches.model.elements.class_diagram.IAssociation
-import edu.kit.kastel.lissa.sketches.model.elements.class_diagram.IClass
-import edu.kit.kastel.lissa.sketches.model.elements.generic.IInterface
-import edu.kit.kastel.lissa.sketches.model.impl.BoxImpl
-import edu.kit.kastel.lissa.sketches.model.impl.RelationImpl
+import edu.kit.kastel.lissa.sketches.model.elements.SketchElementType
+import edu.kit.kastel.lissa.sketches.model.elements.wrapper.AssociationNode
+import edu.kit.kastel.lissa.sketches.model.elements.wrapper.ClassNode
 import org.junit.jupiter.api.Test
 
 internal class TestIT : TestBase() {
     @Test
     fun test() {
-        val sketch = Sketch()
-        sketch.addSketchElement(BoxImpl("Component A", 0.8))
-        sketch.addSketchElement(BoxImpl("Component B", 0.6))
-        sketch.changeInterpretation(sketch.getBoxElements()[0], IClass::class)
-        sketch.addSketchElement(RelationImpl("Relation 1", 0.5))
-        val assoc =
-            sketch.changeInterpretation(sketch.getRelationElements()[0], IAssociation::class)
+        val sketch: ISketch = Sketch()
+        sketch.addSketchElement("Component A", 0.8, SketchElementType.CLASS)
+        sketch.addSketchElement("Component B", 0.6, SketchElementType.CLASS)
+        val association = sketch.addSketchElement("Relation 1", 0.5, SketchElementType.ASSOCIATION)
+        val associationNode = AssociationNode(association)
 
-        sketch.getBoxElements(IClass::class).forEach { e: IClass ->
-            assoc.addToAssociation(e)
-        }
-        sketch.getBoxElements(IInterface::class).forEach { e: IInterface ->
-            assoc.addToAssociation(e)
+        sketch.getElements(SketchElementType.CLASS, ClassNode::class.java).forEach { e: ClassNode ->
+            associationNode.addToAssociation(e)
         }
         println(sketch)
     }
