@@ -7,6 +7,7 @@
         <version>${revision}</version>
     </parent>
     <artifactId>linking</artifactId>
+    <name>Linking Module</name>
 
     <properties>
         <jgrapht.version>1.5.1</jgrapht.version>

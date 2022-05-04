@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>cli</artifactId>
-    <name>LiSSA-CLI</name>
+    <name>LiSSA Command Line Interface</name>
 
     <dependencies>
         <dependency>

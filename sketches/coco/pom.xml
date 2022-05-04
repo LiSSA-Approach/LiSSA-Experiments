@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>sketches.coco</artifactId>
-    <name>Adapter to COCO Files</name>
+    <name>COCO File Adapter</name>
     <dependencies>
         <dependency>
             <groupId>edu.kit.kastel.lissa</groupId>

@@ -9,6 +9,7 @@
 
     <artifactId>sketches</artifactId>
     <packaging>pom</packaging>
+    <name>Sketch / Diagram Module</name>
     <modules>
         <module>coco</module>
         <module>model</module>

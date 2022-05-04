@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>sketches.model</artifactId>
+    <name>Sketch / Diagram Meta Model</name>
 
     <dependencies>
         <dependency>

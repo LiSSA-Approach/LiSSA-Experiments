@@ -3,15 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>edu.kit.kastel.lissa</groupId>
-        <artifactId>approach</artifactId>
+        <artifactId>swa</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>swa</artifactId>
-    <packaging>pom</packaging>
-    <name>Software Architecture</name>
-    <modules>
-        <module>documentation</module>
-        <module>pcm</module>
-    </modules>
+    <artifactId>swa.documentation</artifactId>
+    <name>Documentation Adapter</name>
 </project>

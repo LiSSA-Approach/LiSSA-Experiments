@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>swa.pcm</artifactId>
+    <name>Palladio Component Model Adapter</name>
     <dependencies>
         <dependency>
             <groupId>edu.kit.kastel.informalin</groupId>
