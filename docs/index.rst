@@ -19,8 +19,6 @@ ________
 
     package "CLI" {
         component [CLI] as cli
-        interface Linker as ilink
-        cli -right-( ilink
     }
 
     package "Sketches" {
@@ -38,15 +36,22 @@ ________
     package "Software Architecture (SWA)" {
         [PCM] as pcm
         interface Architecture as iarch
-        pcm -left- iarch
+        pcm -right- iarch
     }
+
+    [ArDoCo] as ardoco
+    interface Docs as docu
+    ardoco -right- docu
 
     package "Linking" {
         [Linking] as linking
+        interface Linker as ilink
+        cli -left-( ilink
 
         linking -right- ilink
-        linking -right-( iarch
+        linking -down-( iarch
         linking -down-( idiagram
+        linking -left-( docu
     }
 
 
