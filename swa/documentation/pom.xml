@@ -9,4 +9,19 @@
 
     <artifactId>swa.documentation</artifactId>
     <name>Documentation Adapter</name>
+    <dependencies>
+        <dependency>
+            <groupId>edu.kit.kastel.mcse.ardoco</groupId>
+            <artifactId>pipeline</artifactId>
+            <version>0.3</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>github-ardoco</id>
+            <name>GitHub ArDoCo/Core Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/ArDoCo/Core</url>
+        </repository>
+    </repositories>
 </project>
