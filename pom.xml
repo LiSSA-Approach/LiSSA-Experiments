@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>edu.kit.kastel.informalin</groupId>
-        <artifactId>framework</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <groupId>com.github.informalin.framework</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.3</version>
     </parent>
 
     <groupId>edu.kit.kastel.lissa</groupId>
@@ -30,12 +30,12 @@
 
     <distributionManagement>
         <repository>
-            <id>github-lissa</id>
+            <id>github</id>
             <name>GitHub Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
         </repository>
         <snapshotRepository>
-            <id>github-lissa</id>
+            <id>github</id>
             <name>GitHub Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
         </snapshotRepository>
@@ -142,6 +142,10 @@
         <repository>
             <id>mavenCentral</id>
             <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
         <repository>
             <id>github</id>

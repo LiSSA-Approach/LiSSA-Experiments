@@ -11,7 +11,7 @@
     <name>Palladio Component Model Adapter</name>
     <dependencies>
         <dependency>
-            <groupId>edu.kit.kastel.informalin</groupId>
+            <groupId>com.github.informalin.framework</groupId>
             <artifactId>models</artifactId>
         </dependency>
         <dependency>
