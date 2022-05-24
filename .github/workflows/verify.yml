@@ -4,8 +4,8 @@ on:
   push: # Ignore releases and main dev branch
     tags-ignore:
       - 'v*'
-    branches-ignore:
-      - 'main'
+#    branches-ignore:
+#      - 'main'
   pull_request:
     types: [ opened, synchronize, reopened ]
 
