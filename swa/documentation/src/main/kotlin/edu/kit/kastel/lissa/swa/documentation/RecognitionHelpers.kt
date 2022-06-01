@@ -18,7 +18,12 @@ fun visualize(imageStream: InputStream, recognitionResult: SketchRecognitionResu
 
     val colorMap = mutableMapOf<String, Color>()
     var currentColor = 0
-    for (box in recognitionResult.boxes) {
+
+    val textBoxes = recognitionResult.textBoxes.map {
+        Box(it.absoluteBox().map { value -> value.toInt() }, 1.0, "TEXT")
+    }
+
+    for (box in recognitionResult.boxes + textBoxes) {
         if (!colorMap.containsKey(box.classification)) {
             colorMap[box.classification] = colors[currentColor]!!
             currentColor++
@@ -26,6 +31,7 @@ fun visualize(imageStream: InputStream, recognitionResult: SketchRecognitionResu
         g2d.color = colorMap[box.classification]
         val coordinates = box.box
         g2d.drawRect(coordinates[0], coordinates[1], coordinates[2] - coordinates[0], coordinates[3] - coordinates[1])
+        g2d.drawString(box.texts.joinToString { it.text }, coordinates[0], coordinates[1])
     }
     g2d.dispose()
     ImageIO.write(image, "png", destination)
@@ -35,31 +41,40 @@ data class BoundingBox(val x1: Double, val y1: Double, val x2: Double, val y2: D
     fun iou(bb: BoundingBox) = intersectionOverUnion(this, bb)
 }
 
-fun intersectionOverUnion(bb1: BoundingBox, bb2: BoundingBox): Double {
-    val xLeft = max(bb1.x1, bb2.x1)
-    val yTop = max(bb1.y1, bb2.y1)
-    val xRight = min(bb1.x2, bb2.x2)
-    val yBottom = min(bb1.y2, bb2.y2)
+fun intersectionOverUnion(bb1: BoundingBox, bb2: BoundingBox): IntersectionUnionData {
+    val xIntersectRight = max(bb1.x1, bb2.x1)
+    val yIntersectDown = max(bb1.y1, bb2.y1)
 
-    if (xRight < xLeft || yBottom < yTop) return 0.0
+    val xIntersectLeft = min(bb1.x2, bb2.x2)
+    val yIntersectUp = min(bb1.y2, bb2.y2)
 
-    val intersectionArea = (xRight - xLeft) * (yBottom - yTop)
+    val widthIntersect = xIntersectLeft - xIntersectRight
+    val heightIntersect = yIntersectUp - yIntersectDown
+    val areaIntersect =
+        if (xIntersectRight >= xIntersectLeft || yIntersectDown >= yIntersectUp) 0.0 else widthIntersect * heightIntersect
 
-    val bb1Area = (bb1.x2 - bb1.x1) * (bb1.y2 - bb1.y1)
-    val bb2Area = (bb2.x2 - bb2.x1) * (bb2.y2 - bb2.y1)
+    val widthBox1 = bb1.x2 - bb1.x1
+    val heightBox1 = bb1.y2 - bb1.y1
+    val widthBox2 = bb2.x2 - bb2.x1
+    val heightBox2 = bb2.y2 - bb2.y1
 
-    return intersectionArea / (bb1Area + bb2Area - intersectionArea)
+    val areaBox1 = widthBox1 * heightBox1
+    val areaBox2 = widthBox2 * heightBox2
+
+    val areaUnion = areaBox1 + areaBox2 - areaIntersect
+
+    return IntersectionUnionData(areaIntersect, areaUnion, areaIntersect / areaUnion)
 }
 
+data class IntersectionUnionData(val areaIntersect: Double, val areaUnion: Double, val iou: Double)
+
 fun <E : Number> List<E>.bb(relative: Boolean = false): BoundingBox {
-    if (this.size != 4)
-        error("List has to contain 4 elements: x1,y1,x2,y2")
-    if (relative)
-        return BoundingBox(
-            this[0].toDouble(),
-            this[1].toDouble(),
-            this[2].toDouble() - this[0].toDouble(),
-            this[3].toDouble() - this[1].toDouble()
-        )
+    if (this.size != 4) error("List has to contain 4 elements: x1,y1,x2,y2")
+    if (relative) return BoundingBox(
+        this[0].toDouble(),
+        this[1].toDouble(),
+        this[2].toDouble() - this[0].toDouble(),
+        this[3].toDouble() - this[1].toDouble()
+    )
     return BoundingBox(this[0].toDouble(), this[1].toDouble(), this[2].toDouble(), this[3].toDouble())
 }

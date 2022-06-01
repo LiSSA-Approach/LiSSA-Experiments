@@ -3,18 +3,36 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.informalin.framework</groupId>
+        <groupId>io.github.informalin.framework</groupId>
         <artifactId>parent</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.5</version>
     </parent>
 
-    <groupId>edu.kit.kastel.lissa</groupId>
+    <groupId>io.github.lissa-approach.lissa-core</groupId>
     <artifactId>approach</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>Linking Sketches and Software Architecture (LiSSA)</name>
+    <description>A framework to connect sketches and informal diagrams with models and source code.</description>
     <url>https://github.com/LiSSA-Approach/LiSSA-Core</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>dfuchss</id>
+            <name>Dominik Fuchss</name>
+            <email>dominik.fuchss@kit.edu</email>
+            <url>https://mcse.kastel.kit.edu/staff_dominik_fuchss.php</url>
+            <organization>KASTEL</organization>
+            <organizationUrl>https://mcse.kastel.kit.edu/</organizationUrl>
+            <timezone>GMT+1</timezone>
+        </developer>
+    </developers>
     <modules>
         <module>cli</module>
         <module>linking</module>
@@ -22,6 +40,11 @@
         <module>swa</module>
         <module>utils</module>
     </modules>
+    <scm>
+        <connection>scm:git:git://github.com/LiSSA-Approach/LiSSA-Core.git</connection>
+        <developerConnection>scm:git:ssh://github.com:LiSSA-Approach/LiSSA-Core.git</developerConnection>
+        <url>http://github.com/LiSSA-Approach/LiSSA-Core/tree/main</url>
+    </scm>
 
     <issueManagement>
         <system>GitHub Issues</system>
@@ -30,14 +53,12 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
-            <id>github</id>
-            <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -75,32 +96,32 @@
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
-                <groupId>edu.kit.kastel.lissa</groupId>
+                <groupId>io.github.lissa-approach.lissa-core</groupId>
                 <artifactId>linking</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>edu.kit.kastel.lissa</groupId>
+                <groupId>io.github.lissa-approach.lissa-core</groupId>
                 <artifactId>sketches</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>edu.kit.kastel.lissa</groupId>
+                <groupId>io.github.lissa-approach.lissa-core</groupId>
                 <artifactId>sketches.coco</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>edu.kit.kastel.lissa</groupId>
+                <groupId>io.github.lissa-approach.lissa-core</groupId>
                 <artifactId>sketches.model</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>edu.kit.kastel.lissa</groupId>
+                <groupId>io.github.lissa-approach.lissa-core</groupId>
                 <artifactId>swa.pcm</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>edu.kit.kastel.lissa</groupId>
+                <groupId>io.github.lissa-approach.lissa-core</groupId>
                 <artifactId>utils</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -144,18 +165,14 @@
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
-            <id>github</id>
-            <name>GitHub Apache Maven Packages InFormALin</name>
-            <url>https://maven.pkg.github.com/InFormALin/Framework</url>
-        </repository>
-        <repository>
-            <id>github-lissa</id>
-            <name>GitHub Apache Maven Packages LiSSA</name>
-            <url>https://maven.pkg.github.com/LiSSA-Approach/LiSSA-Core</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>mavenSnapshot</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
 
@@ -205,6 +222,49 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <keyname>C4F4EA8D79A8DD8512326CB48A47758BA219A9FE</keyname>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
