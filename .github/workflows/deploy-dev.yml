@@ -26,20 +26,18 @@ jobs:
           java-version: 17
           distribution: 'temurin'
 
-      - name: maven-settings-xml-action
+      - name: Set maven settings.xml
         uses: whelk-io/maven-settings-xml-action@v20
         with:
-          servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
+          servers: '[{ "id": "ossrh", "username": "${{ secrets.OSSRH_USER }}", "password": "${{ secrets.OSSRH_TOKEN }}" }]'
 
-      - name: Cache Maven Packages
-        uses: actions/cache@v3
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
         with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          gpg_private_key: ${{ secrets.GPG_KEY }}
 
-      - name: Verify with Maven
-        run: mvn -U -B verify
+      - name: Test with Maven
+        run: mvn -U -B test
 
       - name: Publish Package
         run: mvn -U -B deploy

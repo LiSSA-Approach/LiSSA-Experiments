@@ -4,8 +4,8 @@ on:
   push: # Ignore releases and main dev branch
     tags-ignore:
       - 'v*'
-#    branches-ignore:
-#      - 'main'
+  #    branches-ignore:
+  #      - 'main'
   pull_request:
     types: [ opened, synchronize, reopened ]
 
@@ -47,4 +47,4 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Verify with Maven
-        run: mvn -U -B verify --file pom.xml
+        run: mvn -U -B test --file pom.xml
