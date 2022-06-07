@@ -12,8 +12,20 @@
     <dependencies>
         <dependency>
             <groupId>io.github.ardoco.core</groupId>
-            <artifactId>pipeline</artifactId>
+            <artifactId>common</artifactId>
             <version>0.5-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.ardoco.core</groupId>
+            <artifactId>text-extraction</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.ardoco.core</groupId>
+            <artifactId>text-provider</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.github.informalin.framework</groupId>
