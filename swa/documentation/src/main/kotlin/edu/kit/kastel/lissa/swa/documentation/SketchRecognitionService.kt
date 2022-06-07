@@ -70,12 +70,13 @@ class SketchRecognitionService {
         val textRecognition = sendOCRRequest(
             ByteArrayInputStream(byteData),
             ocrContainer.apiPort,
-            boxes.filter { it -> it.classification == "Label" }
+            boxes.filter { it.classification == "Label" }
         )
 
         val texts: List<TextBox> = oom.readValue(textRecognition)
         combineBoxesAndText(boxes, texts)
-        return SketchRecognitionResult(boxes, texts)
+        // TODO Extract Edges
+        return SketchRecognitionResult(boxes, texts, listOf())
     }
 
     private fun combineBoxesAndText(boxes: List<Box>, texts: List<TextBox>) {
@@ -158,7 +159,7 @@ class SketchRecognitionService {
             box.box[3] + EXPANSION_IN_PX
         )
         // Copy References here. No Copies!
-        return Box(newPositions, box.confidence, box.classification, box.texts)
+        return Box(box.uuid, newPositions, box.confidence, box.classification, box.texts)
     }
 
     private fun executeRequest(uploadFile: HttpPost): String {

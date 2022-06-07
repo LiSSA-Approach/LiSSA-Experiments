@@ -7,6 +7,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.lang.Double.max
 import java.lang.Double.min
+import java.util.*
 import javax.imageio.ImageIO
 
 private val colors = listOf(Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.BLACK, Color.ORANGE)
@@ -20,7 +21,7 @@ fun visualize(imageStream: InputStream, recognitionResult: SketchRecognitionResu
     var currentColor = 0
 
     val textBoxes = recognitionResult.textBoxes.map {
-        Box(it.absoluteBox().map { value -> value.toInt() }, 1.0, "TEXT")
+        Box(UUID.randomUUID().toString(), it.absoluteBox().map { value -> value.toInt() }, 1.0, "TEXT")
     }
 
     for (box in recognitionResult.boxes + textBoxes) {
