@@ -14,12 +14,14 @@ import org.apache.hc.core5.http.HttpEntity
 import org.apache.hc.core5.net.URIBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.awt.image.BufferedImage
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.net.URI
 import java.util.*
 import java.util.stream.IntStream.range
+import javax.imageio.ImageIO
 
 class SketchRecognitionService {
     companion object {
@@ -73,19 +75,60 @@ class SketchRecognitionService {
             boxes.filter { it.classification == "Label" }
         )
 
+        val nodes = boxes.filter { it.classification != "Label" }
         val texts: List<TextBox> = oom.readValue(textRecognition)
-        combineBoxesAndText(boxes, texts)
+        // TODO Merge texts
+        combineBoxesAndText(nodes, texts)
+        calculateDominatingColors(byteData, nodes)
         // TODO Extract Edges
-        return SketchRecognitionResult(boxes, texts, listOf())
+        return SketchRecognitionResult(nodes, texts, listOf())
+    }
+
+    private fun calculateDominatingColors(imageData: ByteArray, boxes: List<Box>) {
+        val image = ImageIO.read(ByteArrayInputStream(imageData))
+        boxes.forEach { calculateDominatingColorForBox(image, it) }
+    }
+
+    private fun calculateDominatingColorForBox(image: BufferedImage, box: Box) {
+        val pixels = getPixels(image, box.box)
+
+        val count = pixels.size
+        if (count == 0) return
+
+        val pixelCount = pixels.groupingBy { it }.eachCount().toList().sortedByDescending { it.second }
+        val mostPixel = pixelCount[0]
+        if (mostPixel.second <= count / 2) return
+
+        box.dominatingColor = mostPixel.first
+        setColorsOfTexts(image, box)
+    }
+
+    private fun <N : Number> getPixels(image: BufferedImage, box: List<N>): List<Int> {
+        val result = mutableListOf<Int>()
+        for (x in range(box[0].toInt(), box[2].toInt())) for (y in range(box[1].toInt(), box[3].toInt())) result.add(
+            image.getRGB(x, y)
+        )
+        return result
+    }
+
+    private fun setColorsOfTexts(image: BufferedImage, box: Box) {
+        for (text in box.texts) {
+            val pixels = getPixels(image, text.absoluteBox())
+            val count = pixels.size
+            if (count == 0) continue
+            val pixelCount = pixels.groupingBy { it }.eachCount().toList().sortedByDescending { it.second }
+            val textColor = pixelCount.find { (rgba, _) -> rgba != box.dominatingColor }
+            if (textColor != null) text.dominatingColor = textColor.first
+        }
     }
 
     private fun combineBoxesAndText(boxes: List<Box>, texts: List<TextBox>) {
         for (text in texts) {
             if (text.text.length < 3) continue
-            val intersects =
-                boxes.filter { it.classification == "Label" }.map { it to it.box.bb().iou(text.absoluteBox().bb()) }
 
-            val results = intersects.filter { it.second.iou > 0.5 || it.second.areaIntersect / it.first.area() > 0.1 }
+            val intersects = boxes.map { it to it.box.bb().iou(text.absoluteBox().bb()) }
+
+            val results = intersects.filter { it.second.areaIntersect / text.area() > 0.9 }
             if (results.isEmpty()) continue
             logger.info("Found {} intersects with {}", intersects.size, text.text)
             results.forEach { it.first.texts.add(text) }

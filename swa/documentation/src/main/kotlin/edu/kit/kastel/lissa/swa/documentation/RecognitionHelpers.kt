@@ -21,7 +21,9 @@ fun visualize(imageStream: InputStream, recognitionResult: SketchRecognitionResu
     var currentColor = 0
 
     val textBoxes = recognitionResult.textBoxes.map {
-        Box(UUID.randomUUID().toString(), it.absoluteBox().map { value -> value.toInt() }, 1.0, "TEXT")
+        val tb = Box(UUID.randomUUID().toString(), it.absoluteBox().map { value -> value.toInt() }, 1.0, "TEXT")
+        tb.texts.add(it)
+        tb
     }
 
     for (box in recognitionResult.boxes + textBoxes) {
@@ -32,7 +34,8 @@ fun visualize(imageStream: InputStream, recognitionResult: SketchRecognitionResu
         g2d.color = colorMap[box.classification]
         val coordinates = box.box
         g2d.drawRect(coordinates[0], coordinates[1], coordinates[2] - coordinates[0], coordinates[3] - coordinates[1])
-        g2d.drawString(box.texts.joinToString { it.text }, coordinates[0], coordinates[1])
+        if (box.classification == "TEXT")
+            g2d.drawString(box.texts.joinToString { it.text }, coordinates[0], coordinates[1])
     }
     g2d.dispose()
     ImageIO.write(image, "png", destination)
