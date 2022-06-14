@@ -7,16 +7,29 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>swa.documentation</artifactId>
-    <name>Documentation Adapter</name>
+    <artifactId>swa.combinator</artifactId>
+    <name>SWA Combinator</name>
     <dependencies>
         <dependency>
-            <groupId>io.github.informalin.framework</groupId>
-            <artifactId>docker</artifactId>
+            <groupId>io.github.ardoco.core</groupId>
+            <artifactId>common</artifactId>
+            <version>0.5-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.ardoco.core</groupId>
+            <artifactId>text-extraction</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.ardoco.core</groupId>
+            <artifactId>text-provider</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
-            <artifactId>sketches.coco</artifactId>
+            <artifactId>swa.documentation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

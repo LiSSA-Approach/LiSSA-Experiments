@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <name>Software Architecture</name>
     <modules>
+        <module>combinator</module>
         <module>documentation</module>
         <module>pcm</module>
     </modules>

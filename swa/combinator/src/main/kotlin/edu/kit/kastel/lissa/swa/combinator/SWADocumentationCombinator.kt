@@ -1,5 +1,6 @@
-package edu.kit.kastel.lissa.swa.documentation
+package edu.kit.kastel.lissa.swa.combinator
 
+import edu.kit.kastel.lissa.swa.documentation.SketchRecognitionResult
 import edu.kit.kastel.mcse.ardoco.core.api.agent.IClaimant
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.ITextState
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.MappingKind
@@ -12,6 +13,7 @@ class SWADocumentationCombinator : IClaimant {
     }
 
     fun combineInformation(textState: ITextState, sketchRecognitionResult: SketchRecognitionResult) {
+        // TODO Further work ..
         val elements = sketchRecognitionResult.boxes.filter { it.confidence > 0.5 }.flatMap { it.texts }
             .filter { it.confidence > 0.5 }.map { it.text }
         val nounMappings = textState.nounMappings
