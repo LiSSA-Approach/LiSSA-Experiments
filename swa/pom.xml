@@ -11,9 +11,10 @@
     <packaging>pom</packaging>
     <name>Software Architecture</name>
     <modules>
+        <module>api</module>
         <module>combinator</module>
         <module>documentation</module>
-        <module>pcm</module>
         <module>element-labeler</module>
+        <module>pcm</module>
     </modules>
 </project>

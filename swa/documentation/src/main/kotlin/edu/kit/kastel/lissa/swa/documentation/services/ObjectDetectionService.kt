@@ -2,7 +2,7 @@ package edu.kit.kastel.lissa.swa.documentation.services
 
 import com.fasterxml.jackson.module.kotlin.readValue
 import edu.kit.kastel.informalin.framework.docker.DockerManager
-import edu.kit.kastel.lissa.swa.documentation.Box
+import edu.kit.kastel.lissa.swa.api.sketches.Box
 import edu.kit.kastel.lissa.swa.documentation.executeRequest
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder

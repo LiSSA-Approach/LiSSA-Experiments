@@ -19,6 +19,10 @@
             <artifactId>sketches.coco</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.github.lissa-approach.lissa-core</groupId>
+            <artifactId>swa.api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>

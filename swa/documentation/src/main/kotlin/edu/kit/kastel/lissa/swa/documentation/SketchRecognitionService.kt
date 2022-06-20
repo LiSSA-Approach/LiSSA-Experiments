@@ -1,6 +1,9 @@
 package edu.kit.kastel.lissa.swa.documentation
 
 import edu.kit.kastel.informalin.framework.docker.DockerManager
+import edu.kit.kastel.lissa.swa.api.sketches.Box
+import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
+import edu.kit.kastel.lissa.swa.api.sketches.TextBox
 import edu.kit.kastel.lissa.swa.documentation.services.OCRService
 import edu.kit.kastel.lissa.swa.documentation.services.ObjectDetectionService
 import org.slf4j.Logger

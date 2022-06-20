@@ -1,5 +1,7 @@
 package edu.kit.kastel.lissa.swa.documentation
 
+import edu.kit.kastel.lissa.swa.api.sketches.Box
+import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse
 import org.apache.hc.client5.http.impl.classic.HttpClients

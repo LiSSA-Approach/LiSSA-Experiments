@@ -1,6 +1,6 @@
 package edu.kit.kastel.lissa.swa.combinator
 
-import edu.kit.kastel.lissa.swa.documentation.SketchRecognitionResult
+import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
 import edu.kit.kastel.lissa.swa.documentation.SketchRecognitionService
 import edu.kit.kastel.mcse.ardoco.core.api.data.DataStructure
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.ITextState
