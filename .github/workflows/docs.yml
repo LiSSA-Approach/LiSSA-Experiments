@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      - run: pip install -r requirements.txt
+      - run: sudo apt-get install graphviz -y && pip install -r requirements.txt
         working-directory: docs
       - run: make html dirhtml
         working-directory: docs
