@@ -14,8 +14,8 @@ import java.io.FileOutputStream
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SketchRecognitionServiceTest {
     companion object {
-        // const val PATH = "src/test/resources/bbb-arch-overview.png"
-        const val PATH = "src/test/resources/highlevelArchitecture.png"
+        const val PATH = "src/test/resources/bbb-arch-overview.png"
+        const val PATH_TO_HL_ARCHITECTURE = "src/test/resources/highlevelArchitecture.png"
     }
 
     private lateinit var service: SketchRecognitionService
@@ -33,8 +33,8 @@ class SketchRecognitionServiceTest {
     }
 
     @Test
-    fun testSimpleRecognition() {
-        val file = FileInputStream(File(PATH))
+    fun testSimpleRecognitionWithColors() {
+        val file = FileInputStream(File(PATH_TO_HL_ARCHITECTURE))
         val response = service.recognize(file)
         Assertions.assertNotNull(response)
         Assertions.assertEquals(8, response.boxes.size)
@@ -56,6 +56,21 @@ class SketchRecognitionServiceTest {
         val logicText = texts.find { it.text.lowercase().contains("logic") }!!
         Assertions.assertEquals(Color(255, 255, 255).rgb, javaText.dominatingColor)
         Assertions.assertEquals(Color(96, 74, 123).rgb, logicText.dominatingColor)
+
+        val destination = File("target/testout/result_testSimpleRecognitionWithColors.png")
+        visualize(
+            FileInputStream(File(PATH_TO_HL_ARCHITECTURE)),
+            response,
+            FileOutputStream(destination)
+        )
+        if (Desktop.isDesktopSupported()) Desktop.getDesktop().open(destination)
+    }
+
+    @Test
+    fun simpleRecognition() {
+        val file = FileInputStream(File(PATH))
+        val response = service.recognize(file)
+        Assertions.assertNotNull(response)
 
         val destination = File("target/testout/result_testSimpleRecognition.png")
         visualize(
