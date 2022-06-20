@@ -17,14 +17,14 @@ internal class CommonPLandTechnologiesTest {
     @Test
     fun testPLs() {
         val languages = commonPLandTechnologies.programmingLanguages()
-        Assertions.assertThat(languages.containsAll(listOf("Java", "Kotlin", "C++")))
+        Assertions.assertThat(languages).containsAll(listOf("Java", "Kotlin", "C++"))
     }
 
     @Test
     fun testFrameworks() {
         val webFramework = commonPLandTechnologies.webFrameworks()
-        Assertions.assertThat(webFramework.containsAll(listOf("Spring Framework")))
+        Assertions.assertThat(webFramework).containsAll(listOf("Spring Framework"))
         val javaFramework = commonPLandTechnologies.javaFrameworks()
-        Assertions.assertThat(javaFramework.containsAll(listOf("Thymeleaf")))
+        Assertions.assertThat(javaFramework).containsAll(listOf("Thymeleaf"))
     }
 }
