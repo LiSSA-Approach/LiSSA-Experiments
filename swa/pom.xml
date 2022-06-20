@@ -14,5 +14,6 @@
         <module>combinator</module>
         <module>documentation</module>
         <module>pcm</module>
+        <module>element-labeler</module>
     </modules>
 </project>
