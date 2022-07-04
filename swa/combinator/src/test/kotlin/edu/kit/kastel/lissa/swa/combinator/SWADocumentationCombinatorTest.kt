@@ -26,7 +26,7 @@ internal class SWADocumentationCombinatorTest {
         sketchRecognitionResult = service.recognize(file)
         service.stop()
         textState =
-            analyzeText(FileInputStream("../pcm/src/test/resources/benchmark/teammates/teammates.txt"))
+            analyzeText(FileInputStream("../benchmark/teammates/teammates.txt"))
     }
 
     private fun analyzeText(textStream: InputStream): ITextState {

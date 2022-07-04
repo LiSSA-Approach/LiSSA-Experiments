@@ -12,7 +12,9 @@ import java.io.ByteArrayInputStream
 import java.io.InputStream
 
 class ObjectDetectionService(docker: DockerManager) : DockerSubService(
-    docker, DOCKER_SKETCH_RECOGNITION, DEFAULT_PORT,
+    docker,
+    DOCKER_SKETCH_RECOGNITION,
+    DEFAULT_PORT,
     DOCKER_SKETCH_RECOGNITION_VIA_DOCKER
 ) {
     companion object {

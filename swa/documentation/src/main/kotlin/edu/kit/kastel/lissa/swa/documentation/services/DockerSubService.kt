@@ -32,8 +32,9 @@ abstract class DockerSubService(
     }
 
     fun stop() {
-        if (useDocker && this::container.isInitialized)
+        if (useDocker && this::container.isInitialized) {
             this.docker.shutdown(container.containerId)
+        }
     }
 
     protected fun ensureReadiness(entryPoint: String) {

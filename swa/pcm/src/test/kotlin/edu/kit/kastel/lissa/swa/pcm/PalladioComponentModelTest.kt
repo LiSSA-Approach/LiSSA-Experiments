@@ -1,17 +1,19 @@
 package edu.kit.kastel.lissa.swa.pcm
 
+import edu.kit.kastel.lissa.utils.enableDebug
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertTrue
 
-class PalladioComponentModelTest : TestBase() {
+class PalladioComponentModelTest {
 
     private lateinit var palladioComponentModel: PalladioComponentModel
 
     @BeforeEach
     fun setUp() {
+        enableDebug()
         palladioComponentModel =
-            PalladioComponentModel("src/test/resources/benchmark/mediastore/original_model/ms.repository")
+            PalladioComponentModel("../benchmark/mediastore/pcm/ms.repository")
     }
 
     @Test

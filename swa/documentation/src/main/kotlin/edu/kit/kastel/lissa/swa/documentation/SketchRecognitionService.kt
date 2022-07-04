@@ -55,7 +55,7 @@ class SketchRecognitionService {
         logger.debug("Merging ${textsWithHints.size} TextsWithHint and ${textsWithoutHints.size} TextsWithoutHint")
         // TODO Impl
 
-        return textsWithHints + textsWithoutHints
+        return textsWithHints
     }
 
     private fun calculateDominatingColors(imageData: ByteArray, boxes: List<Box>) {

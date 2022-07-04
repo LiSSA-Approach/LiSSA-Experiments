@@ -44,8 +44,9 @@ class Sketch : ISketch {
     private fun <E> create(sketchElement: SketchElement, typeAsClass: Class<E>): E {
         try {
             val constructor: Constructor<in E> = typeAsClass.getDeclaredConstructor(SketchElement::class.java)
-            if (!Modifier.isPublic(constructor.modifiers))
+            if (!Modifier.isPublic(constructor.modifiers)) {
                 error("Constructor for ${typeAsClass.simpleName} is not public")
+            }
             return typeAsClass.cast(constructor.newInstance(sketchElement))
         } catch (e: Exception) {
             logger.error(e.message, e)
