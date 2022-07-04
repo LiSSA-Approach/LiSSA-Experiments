@@ -39,14 +39,23 @@ class SketchRecognitionService {
     fun recognize(input: InputStream): SketchRecognitionResult {
         val byteData = input.readBytes()
         val boxes = objectDetectionService.recognize(byteData)
-        val texts = ocrService.recognize(byteData, boxes)
+        val textsWithHints = ocrService.recognize(byteData, boxes)
+        val textsWithoutHints = ocrService.recognize(byteData, listOf())
 
+        val texts = mergeTexts(textsWithHints, textsWithoutHints)
         val nodes = boxes.filter { it.classification != "Label" }
         // TODO Merge texts
         combineBoxesAndText(nodes, texts)
         calculateDominatingColors(byteData, nodes)
         // TODO Extract Edges
         return SketchRecognitionResult(nodes, texts, listOf())
+    }
+
+    private fun mergeTexts(textsWithHints: List<TextBox>, textsWithoutHints: List<TextBox>): List<TextBox> {
+        logger.debug("Merging ${textsWithHints.size} TextsWithHint and ${textsWithoutHints.size} TextsWithoutHint")
+        // TODO Impl
+
+        return textsWithHints + textsWithoutHints
     }
 
     private fun calculateDominatingColors(imageData: ByteArray, boxes: List<Box>) {
