@@ -28,9 +28,7 @@ class JavaPCMGeneratorTest {
                 "logic" -> map.addClassToComponent(it, pcmModel.components().find { c -> c.entityName == "Logic" })
                 "storage" -> map.addClassToComponent(it, pcmModel.components().find { c -> c.entityName == "Storage" })
                 "test" -> map.addClassToComponent(it, pcmModel.components().find { c -> c.entityName == "Test Driver" })
-                "lnp" -> {
-                    /* TODO What is LNP */
-                }
+                "lnp" -> map.addClassToComponent(it, pcmModel.components().find { c -> c.entityName == "Test Driver" })
                 "architecture" -> map.addClassToComponent(
                     it, // teammates.architecture.ArchitectureTest
                     pcmModel.components().find { c -> c.entityName == "Test Driver" }
