@@ -72,6 +72,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <kotlin.version>1.7.0</kotlin.version>
         <jackson.version>2.13.3</jackson.version>
+        <ardoco.version>0.5-SNAPSHOT</ardoco.version>
+
         <sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
         <sonar.organization>lissa-approach</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>

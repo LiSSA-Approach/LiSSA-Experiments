@@ -13,23 +13,31 @@
         <dependency>
             <groupId>io.github.ardoco.core</groupId>
             <artifactId>common</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>${ardoco.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.ardoco.core</groupId>
             <artifactId>text-extraction</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>${ardoco.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.github.ardoco.core</groupId>
             <artifactId>text-provider</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>${ardoco.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.informalin.framework</groupId>
+            <artifactId>models</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
             <artifactId>swa.documentation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.lissa-approach.lissa-core</groupId>
+            <artifactId>swa.pcm</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

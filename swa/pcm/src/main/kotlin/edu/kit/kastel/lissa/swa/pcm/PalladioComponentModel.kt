@@ -7,6 +7,7 @@ import edu.kit.kastel.informalin.framework.models.pcm.PCMRepository
 import java.io.File
 
 class PalladioComponentModel {
+    private val pcmModel: PCMModel
     private val pcmRepository: PCMRepository
 
     private val interfaces: MutableList<PCMInterface> = mutableListOf()
@@ -15,7 +16,7 @@ class PalladioComponentModel {
     constructor(pcmRepositoryFilePath: String) : this(File(pcmRepositoryFilePath))
 
     constructor(pcmRepositoryFile: File) {
-        val pcmModel = PCMModel(pcmRepositoryFile)
+        this.pcmModel = PCMModel(pcmRepositoryFile)
         this.pcmRepository = pcmModel.repository
         this.interfaces.addAll(pcmRepository.interfaces)
         this.components.addAll(pcmRepository.components)
@@ -23,4 +24,5 @@ class PalladioComponentModel {
 
     fun interfaces() = interfaces.toList()
     fun components() = components.toList()
+    fun model() = pcmModel
 }
