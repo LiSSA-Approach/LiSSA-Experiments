@@ -1,9 +1,9 @@
 package edu.kit.kastel.lissa.swa.combinator
 
+import edu.kit.kastel.informalin.data.DataRepository
 import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
 import edu.kit.kastel.lissa.swa.documentation.SketchRecognitionService
-import edu.kit.kastel.mcse.ardoco.core.api.data.DataStructure
-import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.ITextState
+import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.TextState
 import edu.kit.kastel.mcse.ardoco.core.text.providers.corenlp.CoreNLPProvider
 import edu.kit.kastel.mcse.ardoco.core.textextraction.TextExtraction
 import org.junit.jupiter.api.BeforeAll
@@ -16,7 +16,7 @@ import java.io.InputStream
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class SWADocumentationCombinatorTest {
     private lateinit var sketchRecognitionResult: SketchRecognitionResult
-    private lateinit var textState: ITextState
+    private lateinit var textState: TextState
 
     @BeforeAll
     fun setup() {
@@ -29,11 +29,11 @@ internal class SWADocumentationCombinatorTest {
             analyzeText(FileInputStream("../benchmark/teammates/teammates.txt"))
     }
 
-    private fun analyzeText(textStream: InputStream): ITextState {
-        val text = CoreNLPProvider(textStream).annotatedText
-        val data = DataStructure(text, mapOf())
-        TextExtraction().execute(data, mapOf())
-        return data.textState!!
+    private fun analyzeText(textStream: InputStream): TextState {
+        val repository = DataRepository()
+        CoreNLPProvider(repository, textStream).run()
+        TextExtraction(repository).run()
+        return repository.getData("TextState", TextState::class.java).orElseThrow()
     }
 
     @Test

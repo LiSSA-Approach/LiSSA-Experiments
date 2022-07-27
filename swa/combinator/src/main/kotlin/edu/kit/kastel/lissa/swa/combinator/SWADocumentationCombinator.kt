@@ -1,18 +1,18 @@
 package edu.kit.kastel.lissa.swa.combinator
 
 import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
-import edu.kit.kastel.mcse.ardoco.core.api.agent.IClaimant
-import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.ITextState
+import edu.kit.kastel.mcse.ardoco.core.api.agent.Claimant
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.MappingKind
+import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.TextState
 import edu.kit.kastel.mcse.ardoco.core.common.util.SimilarityUtils
 import org.slf4j.LoggerFactory
 
-class SWADocumentationCombinator : IClaimant {
+class SWADocumentationCombinator : Claimant {
     companion object {
         private val logger = LoggerFactory.getLogger(SWADocumentationCombinator::class.java)
     }
 
-    fun combineInformation(textState: ITextState, sketchRecognitionResult: SketchRecognitionResult) {
+    fun combineInformation(textState: TextState, sketchRecognitionResult: SketchRecognitionResult) {
         // TODO Further work ..
         val elements = sketchRecognitionResult.boxes.filter { it.confidence > 0.5 }.flatMap { it.texts }
             .filter { it.confidence > 0.5 }.map { it.text }
