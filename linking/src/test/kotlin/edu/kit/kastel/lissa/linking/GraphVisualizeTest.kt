@@ -3,12 +3,16 @@ package edu.kit.kastel.lissa.linking
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.mxgraph.layout.mxOrganicLayout
 import com.mxgraph.util.mxCellRenderer
+import edu.kit.kastel.lissa.linking.graph.Graph
 import edu.kit.kastel.lissa.linking.graphmatcher.convertSketchToGraph
 import edu.kit.kastel.lissa.sketches.coco.UMLDataAccessor
 import edu.kit.kastel.lissa.sketches.coco.domain.COCOData
 import edu.kit.kastel.lissa.utils.createObjectMapper
 import edu.kit.kastel.lissa.utils.runInCI
+import org.jgrapht.ListenableGraph
 import org.jgrapht.ext.JGraphXAdapter
+import org.jgrapht.graph.DefaultDirectedGraph
+import org.jgrapht.graph.DefaultListenableGraph
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -37,7 +41,7 @@ class GraphVisualizeTest {
         Assumptions.assumeFalse(runInCI())
         val sketch = data.sketch()
         val graph = convertSketchToGraph(sketch)
-        val graphAdapter = JGraphXAdapter(graph)
+        val graphAdapter = JGraphXAdapter(graph2jGraphT(graph))
         val layout = mxOrganicLayout(graphAdapter)
         layout.execute(graphAdapter.defaultParent)
 
@@ -45,5 +49,12 @@ class GraphVisualizeTest {
         val imgFile = File.createTempFile("graph", ".png")
         ImageIO.write(image, "PNG", imgFile)
         Desktop.getDesktop().open(imgFile)
+    }
+
+    private fun graph2jGraphT(graph: Graph): ListenableGraph<String, String> {
+        val result: ListenableGraph<String, String> = DefaultListenableGraph(DefaultDirectedGraph(String::class.java))
+        graph.nodes().forEach { result.addVertex(it.name()) }
+        graph.edges().forEach { result.addEdge(it.first.name(), it.second.name(), it.third.name()) }
+        return result
     }
 }

@@ -9,10 +9,6 @@
     <artifactId>linking</artifactId>
     <name>Linking Module</name>
 
-    <properties>
-        <jgrapht.version>1.5.1</jgrapht.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
@@ -28,14 +24,14 @@
             <artifactId>swa.pcm</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht-core</artifactId>
-            <version>${jgrapht.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jgrapht</groupId>
             <artifactId>jgrapht-ext</artifactId>
-            <version>${jgrapht.version}</version>
+            <version>1.5.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

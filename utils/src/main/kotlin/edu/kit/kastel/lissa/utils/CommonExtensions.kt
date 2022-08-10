@@ -43,3 +43,15 @@ fun createObjectMapper(): ObjectMapper {
     )
     return objectMapper.registerKotlinModule()
 }
+
+fun <E> List<E>.with(other: E): List<E> {
+    val list = this.toMutableList()
+    list.add(other)
+    return list.toList()
+}
+
+fun <K, V> Map<K, V>.with(key: K, value: V): Map<K, V> {
+    val map = this.toMutableMap()
+    map[key] = value
+    return map.toMap()
+}
