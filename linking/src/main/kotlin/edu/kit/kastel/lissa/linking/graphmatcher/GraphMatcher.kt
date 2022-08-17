@@ -3,27 +3,13 @@ package edu.kit.kastel.lissa.linking.graphmatcher
 import edu.kit.kastel.lissa.linking.graph.Graph
 import edu.kit.kastel.lissa.linking.graph.Node
 import edu.kit.kastel.lissa.utils.with
+import org.slf4j.LoggerFactory
 
 class GraphMatcher(private val graphA: Graph, private val graphB: Graph) {
 
-    // TODO Later allow links of edges as well
-    private val linksOfNodes = mutableListOf<Pair<Node, Node>>()
-
-    fun addLinks(nodeA: Node, nodeB: Node) {
-        // TODO add information about confidence here later
-        if (nodeA !in graphA) {
-            error("nodeA is not in graphA")
-        }
-        if (nodeB !in graphB) {
-            error("nodeB is not in graphB")
-        }
-
-        if (nodeA to nodeB !in linksOfNodes) {
-            linksOfNodes.add(nodeA to nodeB)
-        }
+    companion object {
+        private val logger = LoggerFactory.getLogger(GraphMatcher::class.java)
     }
-
-    fun links() = linksOfNodes.toList()
 
     fun matchUntilNoSeeds(seeds: List<Pair<Node, Node>>): List<Pair<Node, Node>> {
         val matches = mutableListOf<Pair<Node, Node>>()
@@ -44,13 +30,15 @@ class GraphMatcher(private val graphA: Graph, private val graphB: Graph) {
 
     fun match(seedA: Node, seedB: Node): List<Pair<Node, Node>> {
         val mappings = mutableListOf<Map<Node, Node>>()
-        for (childOfSeed in graphA.connectedNodes(seedA))
-            match(childOfSeed, mapOf(seedA to seedB), mappings)
+        for (childOfSeed in graphA.connectedNodes(seedA, null)) match(childOfSeed, mapOf(seedA to seedB), mappings)
 
         if (mappings.isEmpty()) {
             return listOf()
         }
         val bestMapping = findBestMapping(mappings)
+        for (m in mappings)
+            logger.info("Mapping: $m")
+        logger.info("Best Mapping: $bestMapping")
         return bestMapping
     }
 
@@ -84,14 +72,17 @@ class GraphMatcher(private val graphA: Graph, private val graphB: Graph) {
         ignoreNode(seedInA, activeMappingAtoB, mappings)
     }
 
-    private fun possibleMatchingNodes(seedInA: Node, activeMapping: Map<Node, Node>): List<Node> {
-        val parentsWithMappingInA =
-            graphA.connectedNodes(seedInA).filter { it in activeMapping.keys }
+    private fun possibleMatchingNodes(nodeInA: Node, activeMapping: Map<Node, Node>): List<Node> {
+        val parentsWithMappingInA = activeMapping.keys.filter { graphA.connected(it, nodeInA) }
 
-        val parentsInB = parentsWithMappingInA.map { activeMapping[it]!! }
-        val possibleChildren = parentsInB.flatMap { graphB.connectedNodes(it) }
-        val possibleChildrenWithoutMatched = possibleChildren.filter { it !in activeMapping.values }
-        return possibleChildrenWithoutMatched
+        val parentsInBWithEdgeType =
+            parentsWithMappingInA.map { activeMapping[it]!! to graphA.edgeOf(it, nodeInA)?.type() }
+                .filter { it.second != null }
+        val possibleMatches = parentsInBWithEdgeType.flatMap { graphB.connectedNodes(it.first, it.second) }
+
+        val possibleMatchesWithoutAlreadyMatchedNodes = possibleMatches.filter { it !in activeMapping.values }
+        logger.debug("Found ${possibleMatchesWithoutAlreadyMatchedNodes.size} possible matching nodes in GraphB for ${nodeInA.name()}")
+        return possibleMatchesWithoutAlreadyMatchedNodes
     }
 
     private fun matchNodes(
@@ -102,7 +93,7 @@ class GraphMatcher(private val graphA: Graph, private val graphB: Graph) {
     ) {
         val activeMappingAtoBNew = activeMappingAtoB.with(seed, selectedNode)
 
-        for (child in graphA.connectedNodes(seed)) {
+        for (child in graphA.connectedNodes(seed, null)) {
             if (child !in activeMappingAtoB.keys) {
                 match(child, activeMappingAtoBNew, mappings)
             }

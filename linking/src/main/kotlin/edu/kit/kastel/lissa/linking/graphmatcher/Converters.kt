@@ -12,6 +12,6 @@ fun convertSketchToGraph(sketch: Sketch): Graph {
     sketch.getElements(SketchElementType.CLASS, ClassNode::class.java).forEach { result.addVertex(it.name()) }
     sketch.getElements(SketchElementType.ASSOCIATION, AssociationNode::class.java)
         .also { associationNodes -> require(associationNodes.all { element -> element.referencedClasses().size == 2 }) }
-        .forEach { result.addEdge(it.name(), it.referencedClasses()[0].name(), it.referencedClasses()[1].name()) }
+        .forEach { result.addEdge(it.name(), SketchElementType.ASSOCIATION.name, it.referencedClasses()[0].name(), it.referencedClasses()[1].name()) }
     return result
 }

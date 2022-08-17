@@ -6,7 +6,7 @@ import edu.kit.kastel.lissa.linking.graph.Graph
 import edu.kit.kastel.lissa.sketches.coco.UMLDataAccessor
 import edu.kit.kastel.lissa.sketches.coco.domain.COCOData
 import edu.kit.kastel.lissa.utils.createObjectMapper
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class GraphMatcherTest {
@@ -17,23 +17,23 @@ internal class GraphMatcherTest {
         val b = graphA.addVertex("B")
         val c = graphA.addVertex("C")
 
-        val e1 = graphA.addEdge("1", a, b)
-        val e2 = graphA.addEdge("2", b, c)
-        val e3 = graphA.addEdge("3", a, c)
+        val e1 = graphA.addEdge("1", "assoc", a, b)
+        val e2 = graphA.addEdge("2", "assoc", b, c)
+        val e3 = graphA.addEdge("3", "assoc", a, c)
 
         val graphB = Graph()
         val d = graphB.addVertex("D")
         val e = graphB.addVertex("E")
         val f = graphB.addVertex("F")
 
-        val e4 = graphB.addEdge("4", d, e)
-        val e5 = graphB.addEdge("5", e, f)
-        val e6 = graphB.addEdge("6", d, f)
+        val e4 = graphB.addEdge("4", "assoc", d, e)
+        val e5 = graphB.addEdge("5", "assoc", e, f)
+        val e6 = graphB.addEdge("6", "inherit", d, f)
 
         val matcher = GraphMatcher(graphA, graphB)
 
         val matchings = matcher.match(a, d)
-        matchings.forEach { println(it) }
+        assertEquals(3, matchings.size)
     }
 
     @Test
@@ -60,9 +60,9 @@ internal class GraphMatcherTest {
         val c = graphA.addVertex("Very very very important node")
         val x = graphA.addVertex("not important node")
 
-        val e1 = graphA.addEdge("1", a, b)
-        val e2 = graphA.addEdge("2", b, a)
-        val e3 = graphA.addEdge("3", x, c)
+        val e1 = graphA.addEdge("1", "assoc", a, b)
+        val e2 = graphA.addEdge("2", "assoc", b, a)
+        val e3 = graphA.addEdge("3", "assoc", x, c)
 
         val graphB = Graph()
         val d = graphB.addVertex("ImportantNode")
@@ -70,9 +70,9 @@ internal class GraphMatcherTest {
         val f = graphB.addVertex("F")
         val y = graphB.addVertex("NotImportantNode")
 
-        val e4 = graphB.addEdge("4", d, e)
-        val e5 = graphB.addEdge("5", e, d)
-        val e6 = graphB.addEdge("6", f, y)
+        val e4 = graphB.addEdge("4", "assoc", d, e)
+        val e5 = graphB.addEdge("5", "assoc", e, d)
+        val e6 = graphB.addEdge("6", "assoc", f, y)
 
         val matcher = GraphMatcher(graphA, graphB)
 
