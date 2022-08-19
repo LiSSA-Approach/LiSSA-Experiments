@@ -2,6 +2,7 @@ package edu.kit.kastel.lissa.swa.combinator
 
 import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
 import edu.kit.kastel.mcse.ardoco.core.api.agent.Claimant
+import edu.kit.kastel.mcse.ardoco.core.api.data.text.Word
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.MappingKind
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.TextState
 import edu.kit.kastel.mcse.ardoco.core.common.util.SimilarityUtils
@@ -14,12 +15,17 @@ class SWADocumentationCombinator : Claimant {
 
     fun combineInformation(textState: TextState, sketchRecognitionResult: SketchRecognitionResult) {
         // TODO Further work ..
-        val elements = sketchRecognitionResult.boxes.filter { it.confidence > 0.5 }.flatMap { it.texts }
+        val elements: List<String> = sketchRecognitionResult.boxes.filter { it.confidence > 0.5 }.flatMap { it.texts }
             .filter { it.confidence > 0.5 }.map { it.text }
         val nounMappings = textState.nounMappings
         for (nounMapping in nounMappings) {
-            val similar = nounMapping.referenceWords.castToList().times(elements)
-                .find { (a, b) -> SimilarityUtils.areWordsSimilar(a.text, b, 0.9) }
+            val similarList: List<Pair<Word, String>> = nounMapping.referenceWords.toList().times(elements)
+            val similars = similarList.filter { (word, otherString) -> SimilarityUtils.areWordsSimilar(word.text, otherString) }
+            if (similars.size > 1) {
+                logger.warn("Found multiple matchings for sketch element and model element .. using first")
+            }
+
+            val similar = similars.sortedBy { it.first.position }.sortedBy { it.first.sentenceNo }.firstOrNull()
 
             if (similar != null) {
                 logger.info("Found Noun Mapping similar to a sketch element: ${nounMapping.reference}::${similar.second}")
