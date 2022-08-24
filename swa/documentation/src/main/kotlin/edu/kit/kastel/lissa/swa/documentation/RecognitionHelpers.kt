@@ -49,11 +49,13 @@ fun visualize(imageStream: InputStream, recognitionResult: SketchRecognitionResu
         g2d.color = colorMap[box.classification]
         val coordinates = box.box
         g2d.drawRect(coordinates[0], coordinates[1], coordinates[2] - coordinates[0], coordinates[3] - coordinates[1])
-        if (box.classification == "TEXT") g2d.drawString(
-            box.texts.joinToString { it.text },
-            coordinates[0],
-            coordinates[1]
-        )
+        if (box.classification == "TEXT") {
+            g2d.drawString(
+                box.texts.joinToString { it.text },
+                coordinates[0],
+                coordinates[1]
+            )
+        }
     }
     g2d.dispose()
     ImageIO.write(image, "png", destination)
@@ -109,11 +111,13 @@ data class IntersectionUnionData(val areaIntersect: Double, val areaUnion: Doubl
  */
 fun <E : Number> List<E>.boundingBox(relative: Boolean = false): BoundingBox {
     if (this.size != 4) error("List has to contain 4 elements: x1,y1,x2,y2")
-    if (relative) return BoundingBox(
-        this[0].toDouble(),
-        this[1].toDouble(),
-        this[2].toDouble() - this[0].toDouble(),
-        this[3].toDouble() - this[1].toDouble()
-    )
+    if (relative) {
+        return BoundingBox(
+            this[0].toDouble(),
+            this[1].toDouble(),
+            this[2].toDouble() - this[0].toDouble(),
+            this[3].toDouble() - this[1].toDouble()
+        )
+    }
     return BoundingBox(this[0].toDouble(), this[1].toDouble(), this[2].toDouble(), this[3].toDouble())
 }
