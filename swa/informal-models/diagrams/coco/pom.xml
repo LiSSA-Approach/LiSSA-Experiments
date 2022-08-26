@@ -3,21 +3,27 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.lissa-approach.lissa-core</groupId>
-        <artifactId>swa</artifactId>
+        <artifactId>diagrams</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>swa.formal-models</artifactId>
-    <name>Palladio Component Model &amp; UML Model Adapter</name>
+    <artifactId>diagrams.coco</artifactId>
+    <name>COCO File Adapter</name>
     <dependencies>
         <dependency>
-            <groupId>io.github.informalin.framework</groupId>
-            <artifactId>models</artifactId>
+            <groupId>io.github.lissa-approach.lissa-core</groupId>
+            <artifactId>diagrams.model</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
             <artifactId>utils</artifactId>
             <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

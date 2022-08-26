@@ -1,6 +1,6 @@
 package edu.kit.kastel.lissa.swa.combinator
 
-import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
+import edu.kit.kastel.lissa.swa.documentation.recognition.model.SketchRecognitionResult
 import edu.kit.kastel.mcse.ardoco.core.api.agent.Claimant
 import edu.kit.kastel.mcse.ardoco.core.api.data.text.Word
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.MappingKind

@@ -2,7 +2,7 @@ package edu.kit.kastel.lissa.swa.combinator
 
 import edu.kit.kastel.informalin.data.DataRepository
 import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
-import edu.kit.kastel.lissa.swa.documentation.SketchRecognitionService
+import edu.kit.kastel.lissa.swa.documentation.recognition.SketchRecognitionService
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.TextState
 import edu.kit.kastel.mcse.ardoco.core.text.providers.corenlp.CoreNLPProvider
 import edu.kit.kastel.mcse.ardoco.core.textextraction.TextExtraction

@@ -58,7 +58,9 @@ class GraphMatcher(private val nodeSelector: INodeSelector, private val graphA: 
     }
 
     private fun match(
-        nodeToMatchInA: Node, activeMappingAtoB: Map<Node, Node>, finalMappings: MutableList<Map<Node, Node>>
+        nodeToMatchInA: Node,
+        activeMappingAtoB: Map<Node, Node>,
+        finalMappings: MutableList<Map<Node, Node>>
     ) {
         val possibleMatchings = nodeSelector.identifyPossibleNodes(graphA, graphB, nodeToMatchInA, activeMappingAtoB)
         // Match With a node
@@ -70,9 +72,11 @@ class GraphMatcher(private val nodeSelector: INodeSelector, private val graphA: 
         ignoreNode(nodeToMatchInA, activeMappingAtoB, finalMappings)
     }
 
-
     private fun matchNodes(
-        nodeToMatchInA: Node, selectedNodeInB: Node, activeMappingAtoB: Map<Node, Node>, finalMappings: MutableList<Map<Node, Node>>
+        nodeToMatchInA: Node,
+        selectedNodeInB: Node,
+        activeMappingAtoB: Map<Node, Node>,
+        finalMappings: MutableList<Map<Node, Node>>
     ) {
         val activeMappingAtoBNew = activeMappingAtoB.with(nodeToMatchInA, selectedNodeInB)
 
@@ -87,7 +91,9 @@ class GraphMatcher(private val nodeSelector: INodeSelector, private val graphA: 
     }
 
     private fun ignoreNode(
-        nodeToMatchInA: Node, activeMappingAtoB: Map<Node, Node>, finalMappings: MutableList<Map<Node, Node>>
+        nodeToMatchInA: Node,
+        activeMappingAtoB: Map<Node, Node>,
+        finalMappings: MutableList<Map<Node, Node>>
     ) {
         // End recursion
         finalMappings.add(activeMappingAtoB)
