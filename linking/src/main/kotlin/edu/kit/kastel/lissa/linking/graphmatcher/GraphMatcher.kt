@@ -2,10 +2,11 @@ package edu.kit.kastel.lissa.linking.graphmatcher
 
 import edu.kit.kastel.lissa.linking.graph.Graph
 import edu.kit.kastel.lissa.linking.graph.Node
+import edu.kit.kastel.lissa.linking.graphmatcher.selectors.INodeSelector
 import edu.kit.kastel.lissa.utils.with
 import org.slf4j.LoggerFactory
 
-class GraphMatcher(private val graphA: Graph, private val graphB: Graph) {
+class GraphMatcher(private val nodeSelector: INodeSelector, private val graphA: Graph, private val graphB: Graph) {
 
     companion object {
         private val logger = LoggerFactory.getLogger(GraphMatcher::class.java)
@@ -36,8 +37,7 @@ class GraphMatcher(private val graphA: Graph, private val graphB: Graph) {
             return listOf()
         }
         val bestMapping = findBestMapping(mappings)
-        for (m in mappings)
-            logger.info("Mapping: $m")
+        for (m in mappings) logger.info("Mapping: $m")
         logger.info("Best Mapping: $bestMapping")
         return bestMapping
     }
@@ -58,57 +58,38 @@ class GraphMatcher(private val graphA: Graph, private val graphB: Graph) {
     }
 
     private fun match(
-        seedInA: Node,
-        activeMappingAtoB: Map<Node, Node>,
-        mappings: MutableList<Map<Node, Node>>
+        nodeToMatchInA: Node, activeMappingAtoB: Map<Node, Node>, finalMappings: MutableList<Map<Node, Node>>
     ) {
-        val possibleMatchings = possibleMatchingNodes(seedInA, activeMappingAtoB)
+        val possibleMatchings = nodeSelector.identifyPossibleNodes(graphA, graphB, nodeToMatchInA, activeMappingAtoB)
         // Match With a node
         for (selectedNode in possibleMatchings) {
-            matchNodes(seedInA, selectedNode, activeMappingAtoB, mappings)
+            matchNodes(nodeToMatchInA, selectedNode, activeMappingAtoB, finalMappings)
         }
 
         // No match for seed
-        ignoreNode(seedInA, activeMappingAtoB, mappings)
+        ignoreNode(nodeToMatchInA, activeMappingAtoB, finalMappings)
     }
 
-    private fun possibleMatchingNodes(nodeInA: Node, activeMapping: Map<Node, Node>): List<Node> {
-        val parentsWithMappingInA = activeMapping.keys.filter { graphA.connected(it, nodeInA) }
-
-        val parentsInBWithEdgeType =
-            parentsWithMappingInA.map { activeMapping[it]!! to graphA.edgeOf(it, nodeInA)?.type() }
-                .filter { it.second != null }
-        val possibleMatches = parentsInBWithEdgeType.flatMap { graphB.connectedNodes(it.first, it.second) }
-
-        val possibleMatchesWithoutAlreadyMatchedNodes = possibleMatches.filter { it !in activeMapping.values }
-        logger.debug("Found ${possibleMatchesWithoutAlreadyMatchedNodes.size} possible matching nodes in GraphB for ${nodeInA.name()}")
-        return possibleMatchesWithoutAlreadyMatchedNodes
-    }
 
     private fun matchNodes(
-        seed: Node,
-        selectedNode: Node,
-        activeMappingAtoB: Map<Node, Node>,
-        mappings: MutableList<Map<Node, Node>>
+        nodeToMatchInA: Node, selectedNodeInB: Node, activeMappingAtoB: Map<Node, Node>, finalMappings: MutableList<Map<Node, Node>>
     ) {
-        val activeMappingAtoBNew = activeMappingAtoB.with(seed, selectedNode)
+        val activeMappingAtoBNew = activeMappingAtoB.with(nodeToMatchInA, selectedNodeInB)
 
-        for (child in graphA.connectedNodes(seed, null)) {
+        for (child in graphA.connectedNodes(nodeToMatchInA, null)) {
             if (child !in activeMappingAtoB.keys) {
-                match(child, activeMappingAtoBNew, mappings)
+                match(child, activeMappingAtoBNew, finalMappings)
             }
         }
 
         // Ignore all other children
-        mappings.add(activeMappingAtoBNew)
+        finalMappings.add(activeMappingAtoBNew)
     }
 
     private fun ignoreNode(
-        seedInA: Node,
-        activeMappingAtoB: Map<Node, Node>,
-        mappings: MutableList<Map<Node, Node>>
+        nodeToMatchInA: Node, activeMappingAtoB: Map<Node, Node>, finalMappings: MutableList<Map<Node, Node>>
     ) {
         // End recursion
-        mappings.add(activeMappingAtoB)
+        finalMappings.add(activeMappingAtoB)
     }
 }
