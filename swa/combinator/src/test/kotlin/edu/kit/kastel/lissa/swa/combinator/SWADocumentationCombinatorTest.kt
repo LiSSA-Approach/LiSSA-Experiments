@@ -1,8 +1,8 @@
 package edu.kit.kastel.lissa.swa.combinator
 
 import edu.kit.kastel.informalin.data.DataRepository
-import edu.kit.kastel.lissa.swa.api.sketches.SketchRecognitionResult
 import edu.kit.kastel.lissa.swa.documentation.recognition.SketchRecognitionService
+import edu.kit.kastel.lissa.swa.documentation.recognition.model.SketchRecognitionResult
 import edu.kit.kastel.mcse.ardoco.core.api.data.textextraction.TextState
 import edu.kit.kastel.mcse.ardoco.core.text.providers.corenlp.CoreNLPProvider
 import edu.kit.kastel.mcse.ardoco.core.textextraction.TextExtraction
@@ -22,7 +22,7 @@ internal class SWADocumentationCombinatorTest {
     fun setup() {
         val service = SketchRecognitionService()
         service.start()
-        val file = FileInputStream(File("../documentation/src/test/resources/highlevelArchitecture.png"))
+        val file = FileInputStream(File("../informal-models/recognition/src/test/resources/highlevelArchitecture.png"))
         sketchRecognitionResult = service.recognize(file)
         service.stop()
         textState =

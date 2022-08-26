@@ -24,7 +24,7 @@ class ObjectDetectionService(docker: DockerManager) : DockerSubService(
     }
 
     fun recognize(imageData: ByteArray): List<Box> {
-        ensureReadiness("edu/kit/kastel/lissa/swa/documentation/recognition/model")
+        ensureReadiness("sketches")
 
         val dataStream = ByteArrayInputStream(imageData)
         val sketchRecognition = sendSketchRecognitionRequest(dataStream)
