@@ -1,4 +1,4 @@
-package edu.kit.kastel.lissa.swa.elementlabeler.services
+package edu.kit.kastel.lissa.swa.combinator.context
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -8,9 +8,6 @@ import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-/**
- * Common Programming Languages and Technologies Service.
- */
 class CommonPLandTechnologies {
     companion object {
         const val URL_TO_WIKI_PL =

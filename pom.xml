@@ -35,7 +35,6 @@
         </developer>
     </developers>
     <modules>
-        <module>cli</module>
         <module>linking</module>
         <module>sketches</module>
         <module>swa</module>
@@ -97,56 +96,6 @@
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-kotlin</artifactId>
                 <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>linking</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>sketches</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>sketches.coco</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>sketches.model</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.api</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.combinator</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.documentation</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.element-labeler</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.pcm</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>utils</artifactId>
-                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
