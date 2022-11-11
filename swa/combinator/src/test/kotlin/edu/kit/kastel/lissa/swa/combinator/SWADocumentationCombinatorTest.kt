@@ -33,18 +33,12 @@ internal class SWADocumentationCombinatorTest {
         val repository = DataRepository()
         CoreNLPProvider(repository, textStream).run()
         TextExtraction(repository).run()
-        return repository.getData("TextState", TextState::class.java).orElseThrow()
+        return repository.getData(TextState.ID, TextState::class.java).orElseThrow()
     }
 
     @Test
     fun testCombinator() {
         val combinator = SWADocumentationCombinator()
-        val textState = this.textState.createCopy()
         combinator.combineInformation(textState, sketchRecognitionResult)
     }
-}
-
-private fun TextState.createCopy(): TextState {
-    val data = this.serialize()
-    return this.deserialize(data) as TextState
 }
