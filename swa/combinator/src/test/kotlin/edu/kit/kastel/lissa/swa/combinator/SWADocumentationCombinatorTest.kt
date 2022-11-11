@@ -43,3 +43,8 @@ internal class SWADocumentationCombinatorTest {
         combinator.combineInformation(textState, sketchRecognitionResult)
     }
 }
+
+private fun TextState.createCopy(): TextState {
+    val data = this.serialize()
+    return this.deserialize(data) as TextState
+}
