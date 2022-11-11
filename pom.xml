@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.github.informalin.framework</groupId>
         <artifactId>parent</artifactId>
-        <version>0.8.0</version>
+        <version>0.8.1</version>
     </parent>
 
     <groupId>io.github.lissa-approach.lissa-core</groupId>
@@ -34,9 +34,7 @@
         </developer>
     </developers>
     <modules>
-        <module>cli</module>
         <module>linking</module>
-        <module>sketches</module>
         <module>swa</module>
         <module>utils</module>
     </modules>
@@ -71,7 +69,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <kotlin.version>1.7.20</kotlin.version>
-        <jackson.version>2.13.3</jackson.version>
+        <jackson.version>2.13.4</jackson.version>
         <ardoco.version>0.6.0</ardoco.version>
 
         <sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
@@ -96,56 +94,6 @@
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-kotlin</artifactId>
                 <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>linking</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>sketches</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>sketches.coco</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>sketches.model</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.api</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.combinator</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.documentation</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.element-labeler</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>swa.pcm</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.lissa-approach.lissa-core</groupId>
-                <artifactId>utils</artifactId>
-                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -230,7 +178,7 @@
             <plugin>
                 <groupId>com.github.gantsign.maven</groupId>
                 <artifactId>ktlint-maven-plugin</artifactId>
-                <version>1.15.0</version>
+                <version>1.15.2</version>
                 <executions>
                     <execution>
                         <id>ktlint:check</id>

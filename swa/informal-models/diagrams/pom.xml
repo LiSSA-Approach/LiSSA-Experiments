@@ -3,16 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.lissa-approach.lissa-core</groupId>
-        <artifactId>approach</artifactId>
+        <artifactId>swa.informal-models</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>swa</artifactId>
+    <artifactId>diagrams</artifactId>
     <packaging>pom</packaging>
-    <name>Software Architecture</name>
+    <name>Sketch / Diagram Module</name>
     <modules>
-        <module>combinator</module>
-        <module>formal-models</module>
-        <module>informal-models</module>
+        <module>coco</module>
+        <module>model</module>
     </modules>
 </project>

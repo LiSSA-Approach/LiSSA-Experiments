@@ -3,6 +3,7 @@ package edu.kit.kastel.lissa.linking.graphmatcher
 import com.fasterxml.jackson.module.kotlin.readValue
 import edu.kit.kastel.lissa.linking.GraphVisualizeTest
 import edu.kit.kastel.lissa.linking.graph.Graph
+import edu.kit.kastel.lissa.linking.graphmatcher.selectors.EdgeTypeNodeSelector
 import edu.kit.kastel.lissa.sketches.coco.UMLDataAccessor
 import edu.kit.kastel.lissa.sketches.coco.domain.COCOData
 import edu.kit.kastel.lissa.utils.createObjectMapper
@@ -30,7 +31,7 @@ internal class GraphMatcherTest {
         val e5 = graphB.addEdge("5", "assoc", e, f)
         val e6 = graphB.addEdge("6", "inherit", d, f)
 
-        val matcher = GraphMatcher(graphA, graphB)
+        val matcher = GraphMatcher(EdgeTypeNodeSelector(), graphA, graphB)
 
         val matchings = matcher.match(a, d)
         assertEquals(3, matchings.size)
@@ -44,7 +45,7 @@ internal class GraphMatcherTest {
         val graphA = convertSketchToGraph(data.sketch())
         val graphB = convertSketchToGraph(data.sketch())
 
-        val matcher = GraphMatcher(graphA, graphB)
+        val matcher = GraphMatcher(EdgeTypeNodeSelector(), graphA, graphB)
 
         for (i in 0 until graphA.nodes().size) {
             val matchings = matcher.match(graphA.nodes()[i], graphB.nodes()[i])
@@ -74,7 +75,7 @@ internal class GraphMatcherTest {
         val e5 = graphB.addEdge("5", "assoc", e, d)
         val e6 = graphB.addEdge("6", "assoc", f, y)
 
-        val matcher = GraphMatcher(graphA, graphB)
+        val matcher = GraphMatcher(EdgeTypeNodeSelector(), graphA, graphB)
 
         val matchings = matcher.matchUntilNoSeeds(SeedGenerator().generateSeeds(graphA, graphB))
         assertEquals(4, matchings.size)
