@@ -41,7 +41,8 @@
     <scm>
         <connection>scm:git:git://github.com/LiSSA-Approach/LiSSA-Core.git</connection>
         <developerConnection>scm:git:ssh://github.com:LiSSA-Approach/LiSSA-Core.git</developerConnection>
-        <url>http://github.com/LiSSA-Approach/LiSSA-Core/tree/main</url>
+        <tag>HEAD</tag>
+        <url>https://github.com/LiSSA-Approach/LiSSA-Core/tree/main</url>
     </scm>
 
     <issueManagement>
