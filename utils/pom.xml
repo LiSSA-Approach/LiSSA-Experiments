@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.github.lissa-approach.lissa-core</groupId>
         <artifactId>approach</artifactId>
-        <version>${revision}</version>
+        <version>0.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>utils</artifactId>

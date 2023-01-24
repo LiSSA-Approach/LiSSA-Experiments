@@ -4,11 +4,11 @@
     <parent>
         <groupId>io.github.lissa-approach.lissa-core</groupId>
         <artifactId>swa.informal-models</artifactId>
-        <version>${revision}</version>
+        <version>0.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>recognition</artifactId>
-    <name>Diagram &amp; Sketch Recognition</name>
+    <name>Recognition of Diagrams &amp; Sketches</name>
     <dependencies>
         <dependency>
             <groupId>io.github.informalin.framework</groupId>
@@ -16,13 +16,13 @@
         </dependency>
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
-            <artifactId>sketches.coco</artifactId>
-            <version>${revision}</version>
+            <artifactId>diagrams.coco</artifactId>
+            <version>0.3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
             <artifactId>utils</artifactId>
-            <version>${revision}</version>
+            <version>0.3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
