@@ -69,6 +69,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <kotlin.version>1.8.0</kotlin.version>
         <jackson.version>2.14.1</jackson.version>
+        <junit.version>5.9.2</junit.version>
         <ardoco.version>0.6.0</ardoco.version>
 
         <sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
@@ -93,6 +94,18 @@
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-kotlin</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -122,8 +135,12 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
