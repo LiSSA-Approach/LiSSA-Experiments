@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.github.lissa-approach.lissa-core</groupId>
         <artifactId>swa.informal-models</artifactId>
-        <version>0.3.3</version>
+        <version>0.3.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>diagrams</artifactId>
