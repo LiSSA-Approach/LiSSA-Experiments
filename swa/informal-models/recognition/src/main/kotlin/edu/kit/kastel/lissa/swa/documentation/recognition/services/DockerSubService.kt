@@ -38,7 +38,7 @@ abstract class DockerSubService(
     }
 
     protected fun ensureReadiness(entryPoint: String) {
-        val tries = 5
+        val tries = 15
         val waiting = 10000L
 
         HttpClients.createDefault().use { client ->

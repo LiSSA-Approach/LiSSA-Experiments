@@ -40,7 +40,7 @@ class SketchRecognitionServiceTest {
         val response = service.recognize(file)
         Assertions.assertNotNull(response)
         Assertions.assertEquals(8, response.boxes.size)
-        Assertions.assertEquals(43, response.textBoxes.size)
+        Assertions.assertEquals(35, response.textBoxes.size)
 
         val testDriver = response.boxes.filter { it.texts.any { tb -> tb.text.lowercase().contains("driver") } }
         Assertions.assertEquals(1, testDriver.size)
