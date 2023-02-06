@@ -17,7 +17,7 @@ import java.net.URI
 
 class OCRService(docker: DockerManager) : DockerSubService(docker, DOCKER_OCR, DEFAULT_PORT, DOCKER_OCR_VIA_DOCKER) {
     companion object {
-        const val DOCKER_OCR = "ghcr.io/lissa-approach/tesseract-diagram-ocr:latest"
+        const val DOCKER_OCR = "ghcr.io/lissa-approach/diagram-ocr:latest"
         const val DEFAULT_PORT = 5005
         const val DOCKER_OCR_VIA_DOCKER = true
     }
