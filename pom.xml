@@ -70,7 +70,7 @@
         <kotlin.version>1.8.20-RC2</kotlin.version>
         <jackson.version>2.15.0-rc2</jackson.version>
         <junit.version>5.9.2</junit.version>
-        <ardoco.version>0.7.6</ardoco.version>
+        <ardoco.version>0.7.7</ardoco.version>
 
         <sonar.projectKey>LiSSA-Approach_LiSSA-Core</sonar.projectKey>
         <sonar.organization>lissa-approach</sonar.organization>
