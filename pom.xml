@@ -67,8 +67,8 @@
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <kotlin.version>1.8.20</kotlin.version>
-        <jackson.version>2.15.0-rc3</jackson.version>
+        <kotlin.version>1.8.21</kotlin.version>
+        <jackson.version>2.15.0</jackson.version>
         <junit.version>5.9.2</junit.version>
         <ardoco.version>0.7.7</ardoco.version>
 
