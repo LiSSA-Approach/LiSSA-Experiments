@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.github.lissa-approach.lissa-core</groupId>
         <artifactId>diagrams</artifactId>
-        <version>0.3.11</version>
+        <version>0.3.12-SNAPSHOT</version>
     </parent>
 
     <artifactId>diagrams.coco</artifactId>
@@ -13,12 +13,12 @@
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
             <artifactId>diagrams.model</artifactId>
-            <version>0.3.11</version>
+            <version>0.3.12-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.lissa-approach.lissa-core</groupId>
             <artifactId>utils</artifactId>
-            <version>0.3.11</version>
+            <version>0.3.12-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
